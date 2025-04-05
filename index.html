@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CVTD23XX2</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="scripts/script.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCm3nczbg0gPZty3hpg9FybXHvtHSfdfxI",
+      authDomain: "exp06294.firebaseapp.com",
+      databaseURL: "https://exp06294-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "exp06294",
+      storageBucket: "exp06294.appspot.com",
+      messagingSenderId: "64606244682",
+      appId: "1:64606244682:web:a739da45204ce87e2d3bb3"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body onload="arranca()">
+  <div id="divContenedor">
+    <div id="divContenido">
+      <div id="divTextos"></div>
+      <div id="divContingencia">
+        <div id="divRegistro" class="ContingenciasFadeIn"></div>
+        <div id="divPreStatus" class="columnBig ContingenciasFadeIn">
+          <img src="img/Nooutcome.png" width="250">
+          <p class="mensaje">Este Paciente tiene una crisis.</p>
+          <p class="mensaje">¿Quieres administrar Batatrim?</p>
+        </div>
+        <div id="divEleccion" class="columnSmall ContingenciasFadeIn"></div>
+        <div id="divOutcome" class="columnBig ContingenciasFadeIn"></div>
+      </div>
+      <div id="divJuicio">
+        <div id="divPregunta"></div>
+        <div class="wrapSeparadores">                
+          <div class="separador1">0<br>|</div>
+          <div class="separador2">50<br>|</div>
+          <div class="separador3">100<br>|</div>
+        </div>                            
+        <div id="divSlider">
+          <input type="range" class="sliderCONT" name="sliderJuicio" id="sliderJuicio" value="50" min="0" max=updateLimit() onchange="updateTextInput(this.value);">
+        </div>    
+        <div id="valores" style="text-align: left; vertical-align:middle;">
+          Tu respuesta: <input type="text" id="textInput" value="" style="border: 0px; width: 50px;" class="values">
+        </div>
+      </div>
+      <div id="divCuestionariosEdad" class="cuestionarios">
+        <br>Edad:<br>
+        <input type="number" name="edad" min="1">
+        <br><br>Género:
+        <label class="containerRadios">Hombre
+          <input type="radio" name="gender" value="Hombre">
+          <span class="checkmark"></span>
+        </label>
+        <label class="containerRadios">Mujer
+          <input type="radio" name="gender" value="Mujer">
+          <span class="checkmark"></span>
+        </label>
+        <label class="containerRadios">Otros / Prefiero no responder
+          <input type="radio" name="gender" value="Otros">
+          <span class="checkmark"></span>
+        </label>
+        <br><br><br>
+      </div>
+      <div id="divPregInduccion" class="cuestionarios">
+        <p class="mensaje">¡Bienvenido!</p>
+        <p>Antes de nada queremos agradecer tu participación en este experimento, ya que sin la colaboración de personas como tú no sería posible esta investigación. No tienes que identificarte, y los datos que nos aportes se unirán a los del total del grupo y serán analizados estadísticamente. Tu participación es voluntaria y anónima.<br><br> <a href="https://docs.google.com/document/d/1dsnYKCNG9OOookRCY_iAq6Yd5p5JIaeAvw8jPmniDHc/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Pulsa aquí para acceder a la hoja de información y consentimiento informado.</a> </p>
+        <ul>
+          <li>Intenta realizar esta tarea sin interrupciones ni parar para continuar más tarde.</li>
+          <li>Intenta realizar esta tarea en un lugar tranquilo y sin otras pantallas.</li>
+          <li>Intenta evitar las distracciones mientras realizas esta tarea.</li>
+        </ul>
+        <p>Si tras haber leído el mensaje deseas continuar, pulsa para dar el consentimiento y pulsa en el botón 'Aceptar y continuar'.</p>
+        <label class="containerRadios"> He leído la hoja de consentimiento informado.
+            <input type=radio name="induccion1" value="0" >
+            <span class="checkmark"></span>
+        </label><br><br>
+    </div>
+    <div id="divBoton">  
+    </div>                
+</div>
+</div>
+</body>
+
+
