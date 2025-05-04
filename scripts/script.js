@@ -4,8 +4,6 @@
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
 
-const { FaseTest, FasePrevia, FaseMixta, FaseControl } = require("./variablesFase");
-
 //var personId = Math.floor((Math.random() * 1000000) + 1);
 var personId = processText(stringDate());
 var participantIP = "";
@@ -68,6 +66,122 @@ var grupoAsignado = tempShuffled[0]; 	// Elige un grupo al azar
 //Funciones generales:
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++
+// Esta variable la usaremos para el grupo C2 de SOLO BATATRIM
+var FaseTest = {
+	nombreClave: "\"Batatrim\"",
+	nombreSindrome: "Síndrome de Lindsay",
+	ImagenClave: "img/BatatrimBoton.png",
+	ImagenNOClave: "img/noBatatrimBoton.png",
+	ImagenSindrome: "img/NooutcomeNuevo.png",
+	ImagenSano: "img/outcomeNuevo.png",
+	textoCue: "Este paciente tiene el Síndrome de Lindsay",
+	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
+	textoYES: "Has administrado \"Batatrim\"",
+	textoNO: "No has administrado \"Batatrim\"",
+	numTrials: 50,
+	//numTrials: 2,
+	posibleOutcomes: [],
+	secuenciaCells: [],
+	secuenciaResps: [],
+	Juicio: 999,
+	Confianza: 999,
+	NPS: 999,
+	TiemposRespuesta: [],
+};
+var FasePrevia = {
+	nombreClave: "\"Batatrim\"",
+	nombreSindrome: "Síndrome de Lindsay",
+	ImagenClave: "img/recuperaSi.png",
+	ImagenNOClave: "img/recuperaNo.png",
+	ImagenSindrome: "img/Nooutcome.png",
+	ImagenSano: "img/outcome.png",
+	textoTransitAlta: "alta",
+	textoTransitBaja: "baja",
+	textoCue: "Este paciente tiene el Síndrome de Lindsay y se le ha administrado \"Batatrim\"",
+	textoPregunta: "¿Crees que va a recuperarse?",
+	textoYES: "Crees que se va a recuperar",
+	textoNO: "Crees que NO se va a recuperar",
+	numTrials: 20,
+	//numTrials: 2,
+	posibleOutcomes: [],
+	secuenciaCells: [],
+	secuenciaResps: [],
+	Juicio: 999,
+	Confianza: 999,
+	NPS: 999,
+	TiemposRespuesta: [],
+};
+// Esta variable la usaremos para el grupo A de CONDICIÓN MIXTA PLACEBO & BATATRIM
+var FaseMixta = {
+	nombreClave: "\"Batatrim\"",
+	nombreSindrome: "Síndrome de Lindsay",
+	ImagenClave: "img/BatatrimBoton.png",
+	ImagenNOClave: "img/noBatatrimBoton.png",
+	ImagenSindrome: "img/NooutcomeNuevo.png",
+	ImagenSano: "img/outcomeNuevo.png",
+	textoCue: "Este paciente tiene el Síndrome de Lindsay",
+	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
+	textoYES: "Has administrado \"Batatrim\"",
+	textoNO: "No has administrado \"Batatrim\"",
+	numTrials: 50,
+	//numTrials: 2,
+	posibleOutcomes: [],
+	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
+	secuenciaCells: [],
+	secuenciaResps: [],
+	Juicio: 999,
+	Confianza: 999,
+	NPS: 999,
+	TiemposRespuesta: [],
+};
+// Esta variable la usaremos para el grupo C1 de SOLO PLACEBO
+var FasePlacebo = {
+	nombreClave: "\"Cápsula de glucosa\"",
+	nombreSindrome: "Síndrome de Lindsay",
+	ImagenClave: "img/recuperaSi.png",
+	ImagenNOClave: "img/recuperaNo.png",
+	ImagenSindrome: "img/Nooutcome.png",
+	ImagenSano: "img/outcome.png",
+	textoTransitAlta: "alta", // no se usa? 
+	textoTransitBaja: "baja", // no se usa?  
+	textoCue: "Este paciente tiene el Síndrome de Lindsay",
+	textoPregunta: "¿Quieres administrarle \"una cápsula de glucosa\"?",
+	textoYES: "Has administrado \"una cápsula de glucosa\"",
+	textoNO: "No has administrado \"una cápsula de glucosa\"",
+	numTrials: 50,
+	//numTrials: 2,
+	posibleOutcomes: [],
+	secuenciaCells: [],
+	secuenciaResps: [],
+	Juicio: 999,
+	Confianza: 999,
+	NPS: 999,
+	TiemposRespuesta: [],
+};
+var FaseControl = {
+	nombreClave: "\"Batatrim\"",
+	nombreSindrome: "Síndrome de Lindsay",
+	ImagenClave: "img/BatatrimBoton.png",
+	ImagenNOClave: "img/noBatatrimBoton.png",
+	ImagenSindrome: "img/NooutcomeNuevo.png",
+	ImagenSano: "img/outcomeNuevo.png",
+	textoIntroControl: "Sin embargo, esta medicina aún está en fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.",
+	textoCue: "Este paciente tiene el Síndrome de Lindsay",
+	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
+	textoYES: "Has administrado \"Batatrim\"",
+	textoNO: "No has administrado \"Batatrim\"",
+	numTrials: 50,
+	posibleOutcomes: [],
+	secuenciaCells: [],
+	secuenciaResps: [],
+	posibleOutcomes: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9], // Esto lo dejamos para que todos los grupos tengan los datos ordenados igual
+	secuenciaCells: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+	secuenciaResps: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+	Juicio: 999,
+	Confianza: 999,
+	TiemposRespuesta: [],
+};
 
 
 //función para inyectar HTML:
