@@ -4,6 +4,8 @@
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
 
+const { FaseTest, FasePrevia, FaseMixta, FaseControl } = require("./variablesFase");
+
 //var personId = Math.floor((Math.random() * 1000000) + 1);
 var personId = processText(stringDate());
 var participantIP = "";
@@ -41,12 +43,12 @@ var PregInduccionPrecio = "";	// No se usa, TFK comprobar y eliminar
 var PregInduccion = ""; 		// No se usa, TFK comprobar y eliminar
 
 // Seguimiento de los participantes en cada grupo para adjudicar contrabalanceo o no
-var grupoA1 = 9999;  	// grupo 0 -  controla el número de participantes del grupo A1
-var grupoA2 = 9999; 	// grupo 1 -  controla el número de participantes del grupo A2
-var grupoB1 = 9999;	// grupo 2 - B1 
-var grupoB2 = 9999;	// grupo 3 - B2
-var grupoC1 = 9999;	// grupo 4 - Control 1
-var grupoC2 = 0;	// grupo 5 - Control 2
+var grupoA1 = 0;  // grupo 0 -  Grupo MIXTO Placebo-Batatrim
+var grupoA2 = 9999; // grupo 1 // NOT IN USE IN 06295
+var grupoB1 = 9999;	// grupo 2 - B1 // NOT IN USE IN 06295 
+var grupoB2 = 9999;	// grupo 3 - B2 // NOT IN USE IN 06295
+var grupoC1 = 0;	// grupo 4 - Control 1 -- Solo Placebo
+var grupoC2 = 0;	// grupo 5 - Control 2 -- Solo Batatrim
 // Esta variable realmente se verá como la variable: grupoAsignado
 // [grupoA1 = 0, grupoA2 = 1, grupoB1 = 2, grupoB2= 3, grupoC1 = 4, grupoC2 = 5] 
 
@@ -291,80 +293,23 @@ function generaEnsayos(){
 	
 }
 
-//++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++
-
-var FaseTest = {
-  	nombreClave: "\"Batatrim\"",
-	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/BatatrimBoton.png",
-	ImagenNOClave: "img/noBatatrimBoton.png",
-	ImagenSindrome: "img/NooutcomeNuevo.png",
-	ImagenSano: "img/outcomeNuevo.png",
-	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-    textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
-	textoYES: "Has administrado \"Batatrim\"",
-	textoNO: "No has administrado \"Batatrim\"",
-	numTrials: 50,
-	//numTrials: 2,
-    posibleOutcomes: [],
-    secuenciaCells: [],
-    secuenciaResps: [],
-    Juicio: 999,
-    Confianza: 999,
-	NPS: 999,
-	TiemposRespuesta: [],
+function generaEnsayosMixtos(){
+	// Esta función genera una secuencia de ensayos donde unos serán con Batatrim y otros serán con 
+	// cápsulas de glucosa. Para ello, dividimos el total de ensayos entre 10 bloques de 10 
+	for(var i=0; i<2; i++){ //creo 2 bloques de 10 con 30%/70% de éxito
+		if(grupoAsignado<2){  	// grupos A1 y A2 (expectativa inicial alta)
+			var arrayOutcome= [1, 1, 1, 1, 1, 0, 0, 0, 0, 0];
+		}
+		else if(grupoAsignado>3){  	// grupos C1 y C2 (Control - sin ensayos)
+			var arrayOutcome= []; // Añadido para que este grupo salte directamente 
+		}
+		else{        			// grupos B1 y B2 (expectativa inicial baja)
+			var arrayOutcome= [];
+		}  
+		arrayOutcome=shuffle(arrayOutcome);
+		FaseMixta.queSolucion=FaseMixta.queSolucion.concat(arrayOutcome);              
+	}
 }
-
-var FasePrevia = {
-	nombreClave: "\"Batatrim\"",
-	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/recuperaSi.png",		
-	ImagenNOClave: "img/recuperaNo.png",	
-	ImagenSindrome: "img/Nooutcome.png",
-	ImagenSano: "img/outcome.png",
-	textoTransitAlta: "alta",
-	textoTransitBaja: "baja", 
-	textoCue: "Este paciente tiene el Síndrome de Lindsay y se le ha administrado \"Batatrim\"",
-    textoPregunta: "¿Crees que va a recuperarse?",
-    textoYES: "Crees que se va a recuperar",
-	textoNO: "Crees que NO se va a recuperar",
-    numTrials: 20,
-    //numTrials: 2,
-	posibleOutcomes: [],   
-    secuenciaCells: [],
-    secuenciaResps: [],
-    Juicio: 999,
-    Confianza: 999,
-	NPS: 999,
-	TiemposRespuesta: [],
-}
-
-var FaseControl = {
-	nombreClave: "\"Batatrim\"",
-	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/BatatrimBoton.png",
-	ImagenNOClave: "img/noBatatrimBoton.png",
-	ImagenSindrome: "img/NooutcomeNuevo.png",
-	ImagenSano: "img/outcomeNuevo.png",
-	textoIntroControl: "Sin embargo, esta medicina aún está en fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.",
-	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
-	textoYES: "Has administrado \"Batatrim\"",
-	textoNO: "No has administrado \"Batatrim\"",
-	numTrials: 50, 
-    posibleOutcomes: [],   
-    secuenciaCells: [],
-    secuenciaResps: [],
-	posibleOutcomes: [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9], // Esto lo dejamos para que todos los grupos tengan los datos ordenados igual
-	secuenciaCells: [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9],
-	secuenciaResps: [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9],
-	Juicio: 999,
-	Confianza: 999,
-	TiemposRespuesta: [],
-	TiemposRespuesta: [999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999],
-}
-
 if(testeo === 1){
 	FaseControl.numTrials = 2;
 	FasePrevia.numTrials = 2;
@@ -851,12 +796,13 @@ function shouldShowFifthQuestion() {
     return 0;
 }
 
+// Esta función controla cuántas preguntas se hace al final del experimento
 function numberOfQuestions() {
-    // Replace this with the actual condition
     return 4 + shouldShowFifthQuestion();
 }
 
 function siempreOnunca() { 
+	// Esto hace que vaya a aumentar en uno el número de preguntas para participantes extremos 
 	if (FaseTest.secuenciaResps.reduce((a, b) => a + b, 0) / FaseTest.numTrials == 1) {
         return "siempre";
     }
@@ -1208,7 +1154,7 @@ function prepararTextos(){
 //FUNCIONES DE CUESTTIONARIOS:
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
-
+ 
 function cuestionarioEdad(){
 	
 	if ( alertcount == 0){
@@ -1344,7 +1290,7 @@ function saveData(){
 			"ExpCVTD22XX2" + "," + 
 			groupNames[grupoAsignado] + "," + 
 			personId + "," +                		//ID aleatorio
-			participantIP + "," +						// IP del participante //Modified for testing TFK
+			participantIP + "," +					// IP del participante //Modified for testing TFK
 			Age + "," +         		
 			Gender + "," +		
 			FaseTest.Juicio + "," + 				//Juicio 
@@ -1363,7 +1309,7 @@ function saveData(){
 			"ExpCVTD22XX2" + "," + 
 			groupNames[grupoAsignado] + "," + 
 			personId + "," +                		//ID aleatorio
-			participantIP + "," +							// IP del participante //Modified for testing TFK
+			participantIP + "," +					// IP del participante //Modified for testing TFK
 			Age + "," +         		
 			Gender + "," +		
 			FaseTest.Juicio + "," + 				//Juicio 
