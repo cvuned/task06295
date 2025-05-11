@@ -19,8 +19,8 @@ var fecha="";           //contendrá la fecha/hora.
 var Cuestionario=[];    //contiene las respuestas al cuestionario de generalizacion
 var t0 = 0; 
 var t1 = 0; 
-//var testeo = 1;  // variable para reducir el número de ensayos durante el testeo del código // mover a 0 para producción 
-var testeo = 0;  
+var testeo = 1;  // variable para reducir el número de ensayos durante el testeo del código // mover a 0 para producción 
+//var testeo = 0;  
 
 // Indicadores de estado para ver qué pregunta se lanza  
 var juiciorealizado = 0;
@@ -41,22 +41,20 @@ var PregInduccionPrecio = "";	// No se usa, TFK comprobar y eliminar
 var PregInduccion = ""; 		// No se usa, TFK comprobar y eliminar
 
 // Seguimiento de los participantes en cada grupo para adjudicar contrabalanceo o no
-var grupoA1 = 0;  // grupo 0 -  Grupo MIXTO Placebo-Batatrim
-var grupoA2 = 9999; // grupo 1 // NOT IN USE IN 06295
-var grupoB1 = 9999;	// grupo 2 - B1 // NOT IN USE IN 06295 
-var grupoB2 = 9999;	// grupo 3 - B2 // NOT IN USE IN 06295
-var grupoC1 = 0;	// grupo 4 - Control 1 -- Solo Placebo
-var grupoC2 = 0;	// grupo 5 - Control 2 -- Solo Batatrim
-// Esta variable realmente se verá como la variable: grupoAsignado
-// [grupoA1 = 0, grupoA2 = 1, grupoB1 = 2, grupoB2= 3, grupoC1 = 4, grupoC2 = 5] 
+var grupoH = 0;  // Grupo MIXTO Placebo-Batatrim
+var grupoP = 0;	//  Solo Placebo
+var grupoB = 0;	// Control -- Solo Batatrim
 
-var groupNames = ["A1", "A2", "B1", "B2", "C1", "C2"];		//Usado para extraer datos
+// Esta variable realmente se verá como la variable: grupoAsignado
+// [grupoH = 0, grupoP = 1, grupoB = 2] 
+
+var groupNames = ["hibrido", "placebo", "batatrim"];		//Usado para extraer datos
 
 
 // creamos un array para ver el número de participantes en cada grupo
-var grouplist = [grupoA1, grupoA2, grupoB1, grupoB2, grupoC1, grupoC2];
+var grouplist = [grupoH, grupoP, grupoB];
 var participantCount = new Array();
-var tempArray = [0, 1, 2, 3, 4, 5]; 
+var tempArray = [0, 1, 2]; 
 var tempShuffled = shuffle(tempArray);
 var grupoAsignado = tempShuffled[0]; 	// Elige un grupo al azar
 
@@ -67,7 +65,7 @@ var grupoAsignado = tempShuffled[0]; 	// Elige un grupo al azar
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
-// Esta variable la usaremos para el grupo C2 de SOLO BATATRIM
+// Esta variable la usaremos para el grupo de SOLO BATATRIM
 var grupoBatatrim = {
 	nombreClave: "\"Batatrim\"",
 	nombreSindrome: "Síndrome de Lindsay",
@@ -79,8 +77,7 @@ var grupoBatatrim = {
 	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
 	textoYES: "Has administrado \"Batatrim\"",
 	textoNO: "No has administrado \"Batatrim\"",
-	//numTrials: 100,
-	numTrials: 2,
+	numTrials: 100,
 	posibleOutcomes: [],
 	secuenciaCells: [],
 	secuenciaResps: [],
@@ -89,6 +86,7 @@ var grupoBatatrim = {
 	NPS: 999,
 	TiemposRespuesta: [],
 };
+// Esta variable la usaremos para el grupo de SOLO PLACEBO
 var grupoPlacebo = {
 	nombreClave: "\"Batatrim\"",
 	nombreSindrome: "Síndrome de Lindsay",
@@ -102,8 +100,7 @@ var grupoPlacebo = {
 	textoPregunta: "¿Crees que va a recuperarse?",
 	textoYES: "Crees que se va a recuperar",
 	textoNO: "Crees que NO se va a recuperar",
-	//numTrials: 100,
-	numTrials: 2,
+	numTrials: 100,
 	posibleOutcomes: [],
 	secuenciaCells: [],
 	secuenciaResps: [],
@@ -124,8 +121,7 @@ var grupoHibrido = {
 	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
 	textoYES: "Has administrado \"Batatrim\"",
 	textoNO: "No has administrado \"Batatrim\"",
-	//numTrials: 100,
-	numTrials: 2,
+	numTrials: 100,
 	posibleOutcomes: [],
 	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
 	secuenciaCells: [],
@@ -135,30 +131,7 @@ var grupoHibrido = {
 	NPS: 999,
 	TiemposRespuesta: [],
 };
-// Esta variable la usaremos para el grupo C1 de SOLO PLACEBO
-var FasePlacebo = {
-	nombreClave: "\"Cápsula de glucosa\"",
-	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/recuperaSi.png",
-	ImagenNOClave: "img/recuperaNo.png",
-	ImagenSindrome: "img/Nooutcome.png",
-	ImagenSano: "img/outcome.png",
-	textoTransitAlta: "alta", // no se usa? 
-	textoTransitBaja: "baja", // no se usa?  
-	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: "¿Quieres administrarle \"una cápsula de glucosa\"?",
-	textoYES: "Has administrado \"una cápsula de glucosa\"",
-	textoNO: "No has administrado \"una cápsula de glucosa\"",
-	numTrials: 2,
-	//numTrials: 2,
-	posibleOutcomes: [],
-	secuenciaCells: [],
-	secuenciaResps: [],
-	Juicio: 999,
-	Confianza: 999,
-	NPS: 999,
-	TiemposRespuesta: [],
-};
+
 var FaseControl = {
 	nombreClave: "\"Batatrim\"",
 	nombreSindrome: "Síndrome de Lindsay",
@@ -425,7 +398,7 @@ function generaEnsayosMixtos(){
 	}
 }
 if(testeo === 1){
-	FaseControl.numTrials = 2;
+	grupoHibrido.numTrials = 2;
 	grupoPlacebo.numTrials = 2;
 	grupoBatatrim.numTrials = 2; 
 	console.log("This should only be running during tests.")
@@ -639,7 +612,7 @@ function showOutcome(){
 		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")	
 
 	}
-	else if(training[fase] == FaseControl){
+	else if(training[fase] == grupoHibrido){
 		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")		
 	}
     mostrar(divOutcome);
