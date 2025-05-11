@@ -332,10 +332,10 @@ function generaEnsayosMixtos(){
 		else{        					// grupo de todo Batatrim
 			var arrayOpciones= [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		}  
-		arrayOutcome=shuffle(arrayOutcome);
-		grupoHibrido.queSolucion=grupoHibrido.queSolucion.concat(arrayOutcome);   
-		grupoPlacebo.queSolucion=grupoPlacebo.queSolucion.concat(arrayOutcome);   
-		grupoBatatrim.queSolucion=grupoBatatrim.queSolucion.concat(arrayOutcome);      
+		arrayOpciones=shuffle(arrayOpciones);
+		grupoHibrido.queSolucion=grupoHibrido.queSolucion.concat(arrayOpcionese);   
+		grupoPlacebo.queSolucion=grupoPlacebo.queSolucion.concat(arrayOpciones);   
+		grupoBatatrim.queSolucion=grupoBatatrim.queSolucion.concat(arrayOpciones);      
 	}
 }
 if(testeo === 1){
@@ -1317,7 +1317,26 @@ function saveData(){
     
     var BalanceoContingencia = grupoBatatrim.Contingencia+"-"+grupoPlacebo.Contingencia;
      
-	if(grupoAsignado>3){  // En esta caso estamos en un participante del grupo de control
+	if(grupoAsignado == 0){  // En esta caso estamos en un participante del grupo de control
+		data = 
+			"ExpCVTD22XX2" + "," + 
+			groupNames[grupoAsignado] + "," + 
+			personId + "," +                		//ID aleatorio
+			participantIP + "," +					// IP del participante //Modified for testing TFK
+			Age + "," +         		
+			Gender + "," +		
+			grupoBatatrim.Juicio + "," + 				//Juicio 
+			grupoBatatrim.Confianza + "," + 				//Confianza
+			grupoBatatrim.secuenciaResps + "," + 		//Secuencia de respuestas dada
+			grupoBatatrim.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
+			grupoBatatrim.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
+			FaseControl.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
+			FaseControl.posibleOutcomes + "," + 	//Fase 2 - Secuencia de resultados de éxito presentada
+			FaseControl.secuenciaCells + "," +  	//Fase 2 - Secuencia de combinaciones acción-éxito
+			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
+			fecha
+	}
+	else if(grupoAsignado == 1){  // En esta caso estamos en un participante del grupo de control
 		data = 
 			"ExpCVTD22XX2" + "," + 
 			groupNames[grupoAsignado] + "," + 
