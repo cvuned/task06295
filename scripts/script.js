@@ -68,7 +68,7 @@ var grupoAsignado = tempShuffled[0]; 	// Elige un grupo al azar
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
 // Esta variable la usaremos para el grupo C2 de SOLO BATATRIM
-var FaseTest = {
+var grupoBatatrim = {
 	nombreClave: "\"Batatrim\"",
 	nombreSindrome: "Síndrome de Lindsay",
 	ImagenClave: "img/BatatrimBoton.png",
@@ -79,7 +79,7 @@ var FaseTest = {
 	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
 	textoYES: "Has administrado \"Batatrim\"",
 	textoNO: "No has administrado \"Batatrim\"",
-	numTrials: 50,
+	numTrials: 100,
 	//numTrials: 2,
 	posibleOutcomes: [],
 	secuenciaCells: [],
@@ -89,7 +89,7 @@ var FaseTest = {
 	NPS: 999,
 	TiemposRespuesta: [],
 };
-var FasePrevia = {
+var grupoPlacebo = {
 	nombreClave: "\"Batatrim\"",
 	nombreSindrome: "Síndrome de Lindsay",
 	ImagenClave: "img/recuperaSi.png",
@@ -102,7 +102,7 @@ var FasePrevia = {
 	textoPregunta: "¿Crees que va a recuperarse?",
 	textoYES: "Crees que se va a recuperar",
 	textoNO: "Crees que NO se va a recuperar",
-	numTrials: 20,
+	numTrials: 100,
 	//numTrials: 2,
 	posibleOutcomes: [],
 	secuenciaCells: [],
@@ -113,7 +113,7 @@ var FasePrevia = {
 	TiemposRespuesta: [],
 };
 // Esta variable la usaremos para el grupo A de CONDICIÓN MIXTA PLACEBO & BATATRIM
-var FaseMixta = {
+var grupoHibrido = {
 	nombreClave: "\"Batatrim\"",
 	nombreSindrome: "Síndrome de Lindsay",
 	ImagenClave: "img/BatatrimBoton.png",
@@ -124,7 +124,7 @@ var FaseMixta = {
 	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
 	textoYES: "Has administrado \"Batatrim\"",
 	textoNO: "No has administrado \"Batatrim\"",
-	numTrials: 50,
+	numTrials: 100,
 	//numTrials: 2,
 	posibleOutcomes: [],
 	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
@@ -149,7 +149,7 @@ var FasePlacebo = {
 	textoPregunta: "¿Quieres administrarle \"una cápsula de glucosa\"?",
 	textoYES: "Has administrado \"una cápsula de glucosa\"",
 	textoNO: "No has administrado \"una cápsula de glucosa\"",
-	numTrials: 50,
+	numTrials: 2,
 	//numTrials: 2,
 	posibleOutcomes: [],
 	secuenciaCells: [],
@@ -312,8 +312,8 @@ function asignagrupo() {
 	// y de contrabalanceo, asigna a un grupo o a otro al participante. 
 	if(grupoAsignado > 3){
 
-		training=[FaseTest];
-		//training=[FaseControl, FaseTest];
+		training=[grupoBatatrim];
+		//training=[FaseControl, grupoBatatrim];
 		//training=[FaseControl];
 		if(grupoAsignado == 4){
 			group= "Control Remisión Baja - C1"; 
@@ -328,7 +328,7 @@ function asignagrupo() {
 		}
 	}
 	else if(grupoAsignado < 2){
-		training=[FasePrevia, FaseTest];
+		training=[grupoPlacebo, grupoBatatrim];
 		if(grupoAsignado == 0){
 			group= "Expectativa Alta y Remisión Baja - A1"; 
 		}
@@ -342,7 +342,7 @@ function asignagrupo() {
 		}  
 	}
 	else{
-		training=[FasePrevia, FaseTest];
+		training=[grupoPlacebo, grupoBatatrim];
 		if(grupoAsignado == 2){
 			group= "Expectativa Baja y Remisión Baja - B1"; 
 		}
@@ -375,7 +375,7 @@ function generaEnsayos(){
 			var arrayOutcome= [1, 1, 1, 0, 0, 0, 0, 0, 0, 0];
 		}  
 		arrayOutcome=shuffle(arrayOutcome);
-		FasePrevia.posibleOutcomes=FasePrevia.posibleOutcomes.concat(arrayOutcome);              
+		grupoPlacebo.posibleOutcomes=grupoPlacebo.posibleOutcomes.concat(arrayOutcome);              
 	}
 
 	for(var i=0; i<5; i++){ //creo 5 bloques de 10 con 30%/70% de éxito
@@ -385,11 +385,11 @@ function generaEnsayos(){
 			var arrayOutcome= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
 		}  
 		arrayOutcome=shuffle(arrayOutcome);
-		FaseTest.posibleOutcomes=FaseTest.posibleOutcomes.concat(arrayOutcome);
+		grupoBatatrim.posibleOutcomes=grupoBatatrim.posibleOutcomes.concat(arrayOutcome);
 	}
 	// Todo este bloque siguiente es para debugging //debug
 	//if(grupoAsignado<4){					
-	//	sum = FasePrevia.posibleOutcomes.reduce((a, b) => {
+	//	sum = grupoPlacebo.posibleOutcomes.reduce((a, b) => {
 	//		return a + b;
 	//	});
 	//	console.log("Expectativa inicial: "+100*sum/20+"%.");	
@@ -399,8 +399,8 @@ function generaEnsayos(){
 	//	console.log("Este es un grupo de control sin manipulación");	
 	//}
     //console.log("Resultados para fase test:");	
-    //console.log(FaseTest.posibleOutcomes);	
-	//sum2 = FaseTest.posibleOutcomes.reduce((a, b) => {
+    //console.log(grupoBatatrim.posibleOutcomes);	
+	//sum2 = grupoBatatrim.posibleOutcomes.reduce((a, b) => {
 	//	return a + b;
 	//  });
 	//console.log("Remisión espontánea: "+100*sum2/50+"%.");
@@ -421,13 +421,13 @@ function generaEnsayosMixtos(){
 			var arrayOutcome= [];
 		}  
 		arrayOutcome=shuffle(arrayOutcome);
-		FaseMixta.queSolucion=FaseMixta.queSolucion.concat(arrayOutcome);              
+		grupoHibrido.queSolucion=grupoHibrido.queSolucion.concat(arrayOutcome);              
 	}
 }
 if(testeo === 1){
 	FaseControl.numTrials = 2;
-	FasePrevia.numTrials = 2;
-	FaseTest.numTrials = 2; 
+	grupoPlacebo.numTrials = 2;
+	grupoBatatrim.numTrials = 2; 
 	console.log("This should only be running during tests.")
 }
 
@@ -472,7 +472,7 @@ function showCue(){
 
 function mostrarEleccion(){
 		
-	if(training[fase] == FaseTest){ 
+	if(training[fase] == grupoBatatrim){ 
 
 		if(BalPanel==1){
 				pintarHTML('divEleccion',
@@ -488,7 +488,7 @@ function mostrarEleccion(){
 
 		mostrar(divEleccion);
     }
-	else if(training[fase] == FasePrevia){
+	else if(training[fase] == grupoPlacebo){
 
 		if(BalPanel==1){
 				pintarHTML('divEleccion',
@@ -505,7 +505,7 @@ function mostrarEleccion(){
 		mostrar(divEleccion);
 	}
 
-	if(training[fase] == FaseTest){ 
+	if(training[fase] == grupoBatatrim){ 
 
 		if(BalPanel==1){
 				pintarHTML('divEleccion',
@@ -632,10 +632,10 @@ function showOutcome(){
         
 
     pintarHTML('divOutcome', "<img src=\""+imgOutcome+"\" width=250px><br><br>"+textoOutcome);
-    if(training[fase] == FasePrevia){ 
+    if(training[fase] == grupoPlacebo){ 
 		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")	
 	}
-	else if(training[fase] == FaseTest){
+	else if(training[fase] == grupoBatatrim){
 		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")	
 
 	}
@@ -675,7 +675,7 @@ function ITI(){
         setTimeout("showCue()", 100);
 		
 		// Aquí vamos a ir haciendo capturas
-		if((state+1) % FaseTest.numTrials == 0){
+		if((state+1) % grupoBatatrim.numTrials == 0){
 			startData = "A participant with ID " + personId +","+ "reached state:"+ ","+ state +","+ stringDate();
 			if (testeo == 0){
 				guardaFirebase(startData, 'mySurvivalLogs');				
@@ -688,7 +688,7 @@ function ITI(){
      else if(state==training[fase].numTrials-1){
 
 		// Esta siguiente línea se activa si estamos en la fase de creación de expectativas 
-		if(training[fase] == FasePrevia){
+		if(training[fase] == grupoPlacebo){
 			//console.log("Estamos en la fase de manipulación");		 // Comentarios para debug
 			cambiafase();
 		}
@@ -823,7 +823,7 @@ function validaJuicio(){
 		// Vamos a grabar el valor del slider en un punto u otro según nuestra fase
 		if(training[fase].Juicio==999){
 			//training[fase].Juicio=document.getElementById('textInput').value;
-			FaseTest.Juicio=document.getElementById('textInput').value; 			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
+			grupoBatatrim.Juicio=document.getElementById('textInput').value; 			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
 			//console.log("--- LA HORA DEL JUICIO ESTÁ CERCA!!! ---");			// debug
 			//console.log(training[fase].Juicio);								// debug
 			
@@ -839,13 +839,13 @@ function validaJuicio(){
 		}	
 		else if(training[fase].Confianza==999){
 			//training[fase].Confianza=document.getElementById('textInput').value;
-			FaseTest.Confianza=document.getElementById('textInput').value;			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
+			grupoBatatrim.Confianza=document.getElementById('textInput').value;			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
 			// console.log("--- LA HORA DE LA MEDIR NPS ESTÁ CERCA!!! ---");		// debug 
 			// console.log(document.getElementById('textInput').value);		// debug 
-			// console.log(FaseTest.NPS)
-			FaseTest.NPS=document.getElementById('textInput').value;			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
+			// console.log(grupoBatatrim.NPS)
+			grupoBatatrim.NPS=document.getElementById('textInput').value;			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
 			// console.log("--- HEMOS MEDIDO NPS! ---");		// debug 
-			// console.log(FaseTest.NPS)
+			// console.log(grupoBatatrim.NPS)
 			//console.log("--- LA HORA DE LA CONFIANZA ESTÁ CERCA!!! ---");		// debug
 			//console.log(training[fase].Confianza);							// debug
 		}	
@@ -904,7 +904,7 @@ function ReseteoJuicios(){
 
 function shouldShowFifthQuestion() {
     // Replace this with the actual condition
-    if ((FaseTest.secuenciaResps.reduce((a, b) => a + b, 0) / FaseTest.numTrials) > 0.94 || (FaseTest.secuenciaResps.reduce((a, b) => a + b, 0) / FaseTest.numTrials) < 0.05) {
+    if ((grupoBatatrim.secuenciaResps.reduce((a, b) => a + b, 0) / grupoBatatrim.numTrials) > 0.94 || (grupoBatatrim.secuenciaResps.reduce((a, b) => a + b, 0) / grupoBatatrim.numTrials) < 0.05) {
         return 1;
     }
     return 0;
@@ -917,16 +917,16 @@ function numberOfQuestions() {
 
 function siempreOnunca() { 
 	// Esto hace que vaya a aumentar en uno el número de preguntas para participantes extremos 
-	if (FaseTest.secuenciaResps.reduce((a, b) => a + b, 0) / FaseTest.numTrials == 1) {
+	if (grupoBatatrim.secuenciaResps.reduce((a, b) => a + b, 0) / grupoBatatrim.numTrials == 1) {
         return "siempre";
     }
-	if (FaseTest.secuenciaResps.reduce((a, b) => a + b, 0) / FaseTest.numTrials == 0) {
+	if (grupoBatatrim.secuenciaResps.reduce((a, b) => a + b, 0) / grupoBatatrim.numTrials == 0) {
         return "nunca";
     }
-	if (FaseTest.secuenciaResps.reduce((a, b) => a + b, 0) / FaseTest.numTrials > 0.94) {
+	if (grupoBatatrim.secuenciaResps.reduce((a, b) => a + b, 0) / grupoBatatrim.numTrials > 0.94) {
         return "prácticamente siempre";
     }
-	if (FaseTest.secuenciaResps.reduce((a, b) => a + b, 0) / FaseTest.numTrials < 0.05) {
+	if (grupoBatatrim.secuenciaResps.reduce((a, b) => a + b, 0) / grupoBatatrim.numTrials < 0.05) {
         return "prácticamente nunca";
     }
 }
@@ -1028,8 +1028,8 @@ function prepararTextos(){
 			// EXPERIMENTAL! Instrucciones para la fase previa
 			//2: Instrucciones 1
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
-			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ FaseTest.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ FaseTest.nombreClave+".<br>",
+			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+".<br>",
 						
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p> Como parte de un experimento piloto de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", "
@@ -1039,23 +1039,23 @@ function prepararTextos(){
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes intentar predecir si va a superar la crisis o no, "
 			+ "pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content: "
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+FasePrevia.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+FasePrevia.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Va a superar la crisis</td><td>No va a superar la crisis</td></tr></table><br><br>",
 					
 			//5: Instrucciones 2.c 
 			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis.</p>"
-			+ "<table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+FasePrevia.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FasePrevia.ImagenSano+"\" width=\"150px\"></td></tr>"
+			+ "<table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenSano+"\" width=\"150px\"></td></tr>"
 			+ "<tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><p> Después de darte esa información, se te presentará la ficha del siguiente paciente. "
 			+ "<br> Cuando hayas visto a un cierto número de pacientes pasaremos a la siguiente fase.</p>",
 					
 			//6: Instrucciones de la tarea de ALERGIAS 
-			"<p><h3 class=\"titulo\">Instrucciones</h3>Ya has terminado esta fase del estudio de "+FaseTest.nombreSindrome +". Como has visto, la tasa de recuperación de los pacientes que han recibido \"Batatrim\" ha sido "+FasePrevia.textoTransitAlta+". <br><br> Después de ver los resultados anteriores, se te ha invitado a participar en un nuevo experimento con un grupo de población distinto al del experimento piloto.</p>",
+			"<p><h3 class=\"titulo\">Instrucciones</h3>Ya has terminado esta fase del estudio de "+grupoBatatrim.nombreSindrome +". Como has visto, la tasa de recuperación de los pacientes que han recibido \"Batatrim\" ha sido "+grupoPlacebo.textoTransitAlta+". <br><br> Después de ver los resultados anteriores, se te ha invitado a participar en un nuevo experimento con un grupo de población distinto al del experimento piloto.</p>",
 		
 			//6: Instrucciones 1b Phase 2: 
-			"<p><h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una nueva serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". En cada ficha verás un paciente y se te dará la oportunidad de administrarle o no el \"Batatrim\". <br></p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+FaseTest.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+FaseTest.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table>",
+			"<p><h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una nueva serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". En cada ficha verás un paciente y se te dará la oportunidad de administrarle o no el \"Batatrim\". <br></p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table>",
 					
 			//7: Instrucciones 2 Phase 2
-			"<h3 class=\"titulo\">Instrucciones</h3><p>A continuación te informaremos de si el paciente superó la crisis. </p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+FaseTest.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseTest.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><br><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br> Intenta averiguar hasta qué punto es efectivo el "+FaseTest.nombreClave+ ". Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
+			"<h3 class=\"titulo\">Instrucciones</h3><p>A continuación te informaremos de si el paciente superó la crisis. </p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><br><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br> Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 					
 			// A guardar datos via Firebase!  
 			//13: Save Data...
@@ -1078,19 +1078,19 @@ function prepararTextos(){
 		
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
-			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ FaseTest.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ FaseTest.nombreClave+", pero esta medicina aún está en " 
+			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+", pero esta medicina aún está en " 
 			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
-				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+FaseTest.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
-				+ "de administrarle o no el "+FaseTest.nombreClave+ ".</p>",
+				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
+				+ "de administrarle o no el "+grupoBatatrim.nombreClave+ ".</p>",
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+FaseTest.nombreClave+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+FaseTest.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+FaseTest.ImagenNOClave+"\" width"
+			+ ""+grupoBatatrim.nombreClave+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width"
 			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
@@ -1098,12 +1098,12 @@ function prepararTextos(){
 			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
 			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
-			+ "Intenta averiguar hasta qué punto es efectivo el "+FaseTest.nombreClave+ ". "
+			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
 		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+FaseTest.Juicio+".</p>" 
+		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+grupoBatatrim.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
  	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
 			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
@@ -1126,27 +1126,27 @@ function prepararTextos(){
 				
 			// EXPERIMENTAL! Instrucciones para la fase previa
 			//2: Instrucciones 1
-			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. Eres especialista en una enfermedad muy rara y peligrosa llamada "+ FaseTest.nombreSindrome+", que hay que tratar muy rápido en urgencias. Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ FaseTest.nombreClave+".<br>",
+			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+".<br>",
 						
 			//3: Instrucciones 2.a // 
 			"<h3 class=\"titulo\">Instrucciones</h3><p> Como parte de un experimento piloto de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". <br><br>En cada ficha verás un paciente al que se ha administrado \"Batatrim\" y se te pedirá intentar predecir si va a superar la crisis o no. </p>",
 					
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes intentar predecir si va a superar la crisis o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br>"
-			+ "<table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+FasePrevia.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+FasePrevia.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Va a superar la crisis</td><td>No va a superar la crisis</td></tr></table><br><br>",
+			+ "<table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Va a superar la crisis</td><td>No va a superar la crisis</td></tr></table><br><br>",
 					
 			//5: Instrucciones 2.c // 
 			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis.</p><table style=\"text-align: center; align-content: center; border:"
-			+ " 0px; width: 100%;\"><tr><td><img src=\""+FasePrevia.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FasePrevia.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><p> Después de darte esa información, se te presentará la ficha del siguiente paciente.<br> Cuando hayas visto a un cierto número de pacientes pasaremos a la siguiente fase.</p>",
+			+ " 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><p> Después de darte esa información, se te presentará la ficha del siguiente paciente.<br> Cuando hayas visto a un cierto número de pacientes pasaremos a la siguiente fase.</p>",
 					
 			//6: Instrucciones de la tarea de ALERGIAS
-			"<p><h3 class=\"titulo\">Instrucciones</h3>Ya has terminado esta fase del estudio de "+FaseTest.nombreSindrome +". Como has visto, la tasa de recuperación de los pacientes que han recibido \"Batatrim\" ha sido "+FasePrevia.textoTransitBaja+". <br><br> Después de ver los resultados anteriores, se te ha invitado a participar en un nuevo experimento con un grupo de población distinto al del experimento piloto.</p>",
+			"<p><h3 class=\"titulo\">Instrucciones</h3>Ya has terminado esta fase del estudio de "+grupoBatatrim.nombreSindrome +". Como has visto, la tasa de recuperación de los pacientes que han recibido \"Batatrim\" ha sido "+grupoPlacebo.textoTransitBaja+". <br><br> Después de ver los resultados anteriores, se te ha invitado a participar en un nuevo experimento con un grupo de población distinto al del experimento piloto.</p>",
 			
 			//6: Instrucciones 1b Phase 2:
-			"<p><h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una nueva serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". En cada ficha verás un paciente y se te dará la oportunidad de administrarle o no el \"Batatrim\". <br></p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+FaseTest.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+FaseTest.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table>",
+			"<p><h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una nueva serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". En cada ficha verás un paciente y se te dará la oportunidad de administrarle o no el \"Batatrim\". <br></p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table>",
 					
 			//7: Instrucciones 2 Phase 2
-			"<h3 class=\"titulo\">Instrucciones</h3><p>A continuación te informaremos de si el paciente superó la crisis. </p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+FaseTest.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseTest.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><br><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>Intenta averiguar hasta qué punto es efectivo el "+FaseTest.nombreClave+ ". Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
+			"<h3 class=\"titulo\">Instrucciones</h3><p>A continuación te informaremos de si el paciente superó la crisis. </p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><br><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 					
 			// A guardar datos via Firebase!  
 			//13: Save Data...
@@ -1392,12 +1392,12 @@ function saveData(){
 
     stringDate();
     
-    var Fase1countCells = new Map([...new Set(FaseTest.secuenciaCells)].map(
-    x => [x, FaseTest.secuenciaCells.filter(y => y === x).length]));
-    var Fase2countCells = new Map([...new Set(FasePrevia.secuenciaCells)].map(
-    x => [x, FasePrevia.secuenciaCells.filter(y => y === x).length]));
+    var Fase1countCells = new Map([...new Set(grupoBatatrim.secuenciaCells)].map(
+    x => [x, grupoBatatrim.secuenciaCells.filter(y => y === x).length]));
+    var Fase2countCells = new Map([...new Set(grupoPlacebo.secuenciaCells)].map(
+    x => [x, grupoPlacebo.secuenciaCells.filter(y => y === x).length]));
     
-    var BalanceoContingencia = FaseTest.Contingencia+"-"+FasePrevia.Contingencia;
+    var BalanceoContingencia = grupoBatatrim.Contingencia+"-"+grupoPlacebo.Contingencia;
      
 	if(grupoAsignado>3){  // En esta caso estamos en un participante del grupo de control
 		data = 
@@ -1407,15 +1407,15 @@ function saveData(){
 			participantIP + "," +					// IP del participante //Modified for testing TFK
 			Age + "," +         		
 			Gender + "," +		
-			FaseTest.Juicio + "," + 				//Juicio 
-			FaseTest.Confianza + "," + 				//Confianza
-			FaseTest.secuenciaResps + "," + 		//Secuencia de respuestas dada
-			FaseTest.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
-			FaseTest.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
+			grupoBatatrim.Juicio + "," + 				//Juicio 
+			grupoBatatrim.Confianza + "," + 				//Confianza
+			grupoBatatrim.secuenciaResps + "," + 		//Secuencia de respuestas dada
+			grupoBatatrim.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
+			grupoBatatrim.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
 			FaseControl.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
 			FaseControl.posibleOutcomes + "," + 	//Fase 2 - Secuencia de resultados de éxito presentada
 			FaseControl.secuenciaCells + "," +  	//Fase 2 - Secuencia de combinaciones acción-éxito
-			FaseTest.TiemposRespuesta + "," + 		//Tiempos de respuesta 
+			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
 			fecha
 	}
 	else{
@@ -1426,15 +1426,15 @@ function saveData(){
 			participantIP + "," +					// IP del participante //Modified for testing TFK
 			Age + "," +         		
 			Gender + "," +		
-			FaseTest.Juicio + "," + 				//Juicio 
-			FaseTest.Confianza + "," + 				//Confianza
-			FaseTest.secuenciaResps + "," + 		//Secuencia de respuestas dada
-			FaseTest.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
-			FaseTest.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
-			FasePrevia.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
-			FasePrevia.posibleOutcomes + "," + 		//Fase 2 - Secuencia de resultados de éxito presentada
-			FasePrevia.secuenciaCells + "," + 	 	//Fase 2 - Secuencia de combinaciones acción-éxito
-			FaseTest.TiemposRespuesta + "," + 		//Tiempos de respuesta 
+			grupoBatatrim.Juicio + "," + 				//Juicio 
+			grupoBatatrim.Confianza + "," + 				//Confianza
+			grupoBatatrim.secuenciaResps + "," + 		//Secuencia de respuestas dada
+			grupoBatatrim.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
+			grupoBatatrim.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
+			grupoPlacebo.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
+			grupoPlacebo.posibleOutcomes + "," + 		//Fase 2 - Secuencia de resultados de éxito presentada
+			grupoPlacebo.secuenciaCells + "," + 	 	//Fase 2 - Secuencia de combinaciones acción-éxito
+			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
 			fecha
 	}
 
