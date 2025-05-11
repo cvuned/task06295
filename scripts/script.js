@@ -274,6 +274,11 @@ function asignagrupo() {
 		if (grouplist[i] < grouplist[grupoAsignado]) {
 			grupoAsignado = i;
 		}
+		if(testeo === 1){
+			console.log("El GRUPO asignado es el: "+groupNames[grupoAsignado]+".");		//debug
+			console.log("El grupo asignado es el: "+grupoAsignado+".");					// debug
+			console.log("Grupo asignado aleatorio es el:"+grupoAsignado+".") 				// debug
+		}
 	//console.log("El GRUPO asignado es el: "+groupNames[grupoAsignado]+".");		//debug
 	//console.log("El grupo asignado es el: "+grupoAsignado+".");					// debug
 	//console.log("Grupo asignado aleatorio es el:"+grupoAsignado+".") 				// debug
