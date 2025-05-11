@@ -78,6 +78,7 @@ var grupoBatatrim = {
 	textoNO: "No has administrado \"Batatrim\"",
 	numTrials: 100,
 	posibleOutcomes: [],
+	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
@@ -101,6 +102,7 @@ var grupoPlacebo = {
 	textoNO: "Crees que NO se va a recuperar",
 	numTrials: 100,
 	posibleOutcomes: [],
+	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
@@ -331,7 +333,9 @@ function generaEnsayosMixtos(){
 			var arrayOpciones= [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		}  
 		arrayOutcome=shuffle(arrayOutcome);
-		grupoHibrido.queSolucion=grupoHibrido.queSolucion.concat(arrayOutcome);              
+		grupoHibrido.queSolucion=grupoHibrido.queSolucion.concat(arrayOutcome);   
+		grupoPlacebo.queSolucion=grupoPlacebo.queSolucion.concat(arrayOutcome);   
+		grupoBatatrim.queSolucion=grupoBatatrim.queSolucion.concat(arrayOutcome);      
 	}
 }
 if(testeo === 1){
@@ -926,8 +930,10 @@ function previoTexto(){
 // Inicializamos el arrayInstruc con el modo grupos experimentales (grupos A y B)
 
 function prepararTextos(){
-	if(grupoAsignado<2){ // Instrucciones para los grupos A1 y A2: 
-		//console.log("Preparando textos para grupo de ALTA");			//debug
+	if(grupoAsignado == 2){ // Instrucciones para grupo de solo Batatrim: 
+		if (testeo == 1){ 
+			console.log("Preparando textos para grupo de solo Batatrim");			//debug
+		}
 		arrayInstruc=[
 			//0: (portada)  
 			"<h2 class=\"titulo\">ESTUDIO CVTD22XX2</h2><p>¡Muchas gracias por participar en esta investigación, no seria posible sin ti!</p><br><br>"
@@ -975,10 +981,11 @@ function prepararTextos(){
 				+ "<br><br> Pulsa F11 para salir del modo pantalla completa."
 		];
 	}
-	else if(grupoAsignado>3){ // Instrucciones para el grupo de CONTROL 
+	else if(grupoAsignado == 1){ // Instrucciones para grupo de solo Placebo: 
 
-		// Hay que modificar el arrayInstruc
-		//console.log("Preparando textos para grupo de CONTROL");	 	//debug
+		if (testeo == 1){ 
+			console.log("Preparando textos para grupo de solo Placebo");			//debug
+		}
 		arrayInstruc=[
 			//0: (portada) 
 			"<h2 class=\"titulo\">ESTUDIO CVTD23XX2</h2><p>¡Muchas gracias por participar en esta investigación, no seria posible sin ti!</p><br><br><img style=\"display"
@@ -1026,9 +1033,12 @@ function prepararTextos(){
 				+ "<br><br> Pulsa F11 para salir del modo pantalla completa."
 		];
 	}
-	else{
-		//console.log("Preparando textos para grupo de BAJA");		 // Comentarios para debug
-		arrayInstruc=[ // Instrucciones para los grupos B1 y B2: 
+	else{			
+
+		if (testeo == 1){ 
+			console.log("Preparando textos para grupo Híbrido");			//debug
+		}		
+		arrayInstruc=[ // Instrucciones para grupo Hibrido
 			//0: (portada)  
 			"<h2 class=\"titulo\">ESTUDIO CVTD22XX2</h2><p>¡Muchas gracias por participar en esta investigación, no seria posible sin ti!</p><br><br><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"img/uned.png\" width=\"200px\"><p>Sigue las instrucciones que encontrarás a continuación.</p>",
 				
