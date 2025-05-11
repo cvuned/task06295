@@ -47,7 +47,6 @@ var grupoB = 0;	// Control -- Solo Batatrim
 
 // Esta variable realmente se verá como la variable: grupoAsignado
 // [grupoH = 0, grupoP = 1, grupoB = 2] 
-
 var groupNames = ["hibrido", "placebo", "batatrim"];		//Usado para extraer datos
 
 
@@ -279,62 +278,28 @@ function asignagrupo() {
 			console.log("El grupo asignado es el: "+grupoAsignado+".");					// debug
 			console.log("Grupo asignado aleatorio es el:"+grupoAsignado+".") 				// debug
 		}
-	//console.log("El GRUPO asignado es el: "+groupNames[grupoAsignado]+".");		//debug
-	//console.log("El grupo asignado es el: "+grupoAsignado+".");					// debug
-	//console.log("Grupo asignado aleatorio es el:"+grupoAsignado+".") 				// debug
 	}
 
 	// TODO ESTE BLOQUE SIGUIENTE CHECKEA LAS PROBABILIDADES: 
 	group= "No asignado";	
 	// En función del número de participantes que hayan realizado la tarea en la secuencia normal
 	// y de contrabalanceo, asigna a un grupo o a otro al participante. 
-	if(grupoAsignado > 3){
+	if(grupoAsignado == 2){
 
 		training=[grupoBatatrim];
-		//training=[FaseControl, grupoBatatrim];
-		//training=[FaseControl];
-		if(grupoAsignado == 4){
-			group= "Control Remisión Baja - C1"; 
-		}
-		else if(grupoAsignado == 5){
-			group= "Control Remisión Alta - C2"; 
-		}
-		else{
-			group= "ERROR!!!"	
-			//console.log(group);												//debug
-			//console.log("El grupo asignado era: "+grupoAsignado+".");  		//debug
-		}
+		group= "Grupo Placebo"; 
 	}
-	else if(grupoAsignado < 2){
-		training=[grupoPlacebo, grupoBatatrim];
-		if(grupoAsignado == 0){
-			group= "Expectativa Alta y Remisión Baja - A1"; 
-		}
-		else if(grupoAsignado == 1){
-			group= "Expectativa Alta y Remisión Alta - A2"; 
-		}
-		else{
-			group= "ERROR!!!"
-			console.log(group);
-			//console.log("El grupo asignado era: "+grupoAsignado+".");			//debug
-		}  
+	else if(grupoAsignado == 1){
+		training=[grupoPlacebo];
+		group= "EGrupo Placebo"; 
 	}
 	else{
-		training=[grupoPlacebo, grupoBatatrim];
-		if(grupoAsignado == 2){
-			group= "Expectativa Baja y Remisión Baja - B1"; 
-		}
-		else if(grupoAsignado == 3){
-			group= "Expectativa Baja y Remisión Alta - B2"; 
-		}
-		else{
-			group= "ERROR!!!"
-			//console.log(group);												//debug
-			//console.log("El grupo asignado era: "+grupoAsignado+".");  		//debug
-		}
+		training=[grupoHibrido];
+		group= "Grupo Hibrido"; 
 	}
-	//console.log("Pues te ha tocado grupo :"+group+".");						// debug
-
+	if(testeo === 1){
+		console.log("Pues te ha tocado grupo :"+group+".");		//debug
+	}
 }    
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
@@ -342,61 +307,28 @@ function asignagrupo() {
 
 function generaEnsayos(){
 
-	for(var i=0; i<2; i++){ //creo 2 bloques de 10 con 30%/70% de éxito
-		if(grupoAsignado<2){  	// grupos A1 y A2 (expectativa inicial alta)
-			var arrayOutcome= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
-		}
-		else if(grupoAsignado>3){  	// grupos C1 y C2 (Control - sin ensayos)
-			var arrayOutcome= []; // Añadido para que este grupo salte directamente 
-		}
-		else{        			// grupos B1 y B2 (expectativa inicial baja)
-			var arrayOutcome= [1, 1, 1, 0, 0, 0, 0, 0, 0, 0];
-		}  
-		arrayOutcome=shuffle(arrayOutcome);
-		grupoPlacebo.posibleOutcomes=grupoPlacebo.posibleOutcomes.concat(arrayOutcome);              
-	}
-
-	for(var i=0; i<5; i++){ //creo 5 bloques de 10 con 30%/70% de éxito
-		if(grupoAsignado%2==0){  	// grupos A1, B1 y C1 (remisión espontánea baja)
-			var arrayOutcome= [1, 1, 1, 0, 0, 0, 0, 0, 0, 0];}
-		else{        				// grupos A2, B2 y C2 (remisión espontánea alta)
-			var arrayOutcome= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
-		}  
+	for(var i=0; i<10; i++){ //creo 10 bloques de 10 con 30%/70% de éxito
+		var arrayOutcome= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
 		arrayOutcome=shuffle(arrayOutcome);
 		grupoBatatrim.posibleOutcomes=grupoBatatrim.posibleOutcomes.concat(arrayOutcome);
+		grupoPlacebo.posibleOutcomes=grupoPlacebo.posibleOutcomes.concat(arrayOutcome);
+		grupoHibrido.posibleOutcomes=grupoHibrido.posibleOutcomes.concat(arrayOutcome);
 	}
-	// Todo este bloque siguiente es para debugging //debug
-	//if(grupoAsignado<4){					
-	//	sum = grupoPlacebo.posibleOutcomes.reduce((a, b) => {
-	//		return a + b;
-	//	});
-	//	console.log("Expectativa inicial: "+100*sum/20+"%.");	
-	//			// Para control qué dice
-	//}
-	//else{ 
-	//	console.log("Este es un grupo de control sin manipulación");	
-	//}
-    //console.log("Resultados para fase test:");	
-    //console.log(grupoBatatrim.posibleOutcomes);	
-	//sum2 = grupoBatatrim.posibleOutcomes.reduce((a, b) => {
-	//	return a + b;
-	//  });
-	//console.log("Remisión espontánea: "+100*sum2/50+"%.");
-	
 }
 
 function generaEnsayosMixtos(){
 	// Esta función genera una secuencia de ensayos donde unos serán con Batatrim y otros serán con 
 	// cápsulas de glucosa. Para ello, dividimos el total de ensayos entre 10 bloques de 10 
-	for(var i=0; i<2; i++){ //creo 2 bloques de 10 con 30%/70% de éxito
-		if(grupoAsignado<2){  	// grupos A1 y A2 (expectativa inicial alta)
-			var arrayOutcome= [1, 1, 1, 1, 1, 0, 0, 0, 0, 0];
+	// [grupoH = 0, grupoP = 1, grupoB = 2] 
+	for(var i=0; i<10; i++){ //creo 10 bloques de 10 con 50% para cada opción
+		if(grupoAsignado == 0){  		// grupos híbrido
+			var arrayOpciones= [1, 1, 1, 1, 1, 0, 0, 0, 0, 0];
 		}
-		else if(grupoAsignado>3){  	// grupos C1 y C2 (Control - sin ensayos)
-			var arrayOutcome= []; // Añadido para que este grupo salte directamente 
+		else if(grupoAsignado == 1){  	// grupo de todo Placebo
+			var arrayOpciones= [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 		}
-		else{        			// grupos B1 y B2 (expectativa inicial baja)
-			var arrayOutcome= [];
+		else{        					// grupo de todo Batatrim
+			var arrayOpciones= [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		}  
 		arrayOutcome=shuffle(arrayOutcome);
 		grupoHibrido.queSolucion=grupoHibrido.queSolucion.concat(arrayOutcome);              
@@ -412,8 +344,6 @@ if(testeo === 1){
 
 
 function RandomString(length){
-//    var mask = 'ABCDEFGHIJKLMNOPQRSTUVW';
-//    var mask = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var mask = 'BCDFGHJKLMNPQRSTVWXZ';
 var result = '';
     for (var i = length; i > 0; --i) result += mask[Math.floor(Math.random() * mask.length)];
