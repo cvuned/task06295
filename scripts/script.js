@@ -935,46 +935,46 @@ function prepararTextos(){
 			console.log("Preparando textos para grupo de solo Batatrim");			//debug
 		}
 		arrayInstruc=[
-			//0: (portada)  
-			"<h2 class=\"titulo\">ESTUDIO CVTD22XX2</h2><p>¡Muchas gracias por participar en esta investigación, no seria posible sin ti!</p><br><br>"
-			+ "<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"img/uned.png\" width=\"200px\"><p>Sigue las instrucciones que encontrarás a continuación.</p>",
-				
-			// EXPERIMENTAL! Instrucciones para la fase previa
-			//2: Instrucciones 1
+			//0: (portada) 
+			"<h2 class=\"titulo\">ESTUDIO CVTD23XX2</h2><p>¡Muchas gracias por participar en esta investigación, no seria posible sin ti!</p><br><br><img style=\"display"
+			+ ": block; margin-left: auto; margin-right: auto;\" src=\"img/uned.png\" width=\"200px\"><p>Sigue las instrucciones que encontrarás a continuación.</p>",
+		
+			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
 			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+".<br>",
-						
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+", pero esta medicina aún está en " 
+			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
+			
 			//3: Instrucciones 2.a 
-			"<h3 class=\"titulo\">Instrucciones</h3><p> Como parte de un experimento piloto de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", "
-			+ "te vamos a presentar una serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". "
-			+ "<br><br>En cada ficha verás un paciente al que se ha administrado \"Batatrim\" y se te pedirá intentar predecir si va a superar la crisis o no. </p>",
-					
+			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
+				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
+				+ "de administrarle o no el "+grupoBatatrim.nombreClave+ ".</p>",
+			
 			//4: Instrucciones 2.b 
-			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes intentar predecir si va a superar la crisis o no, "
-			+ "pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content: "
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>"
-			+ "Va a superar la crisis</td><td>No va a superar la crisis</td></tr></table><br><br>",
-					
+			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
+			+ ""+grupoBatatrim.nombreClave+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width"
+			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
+			
 			//5: Instrucciones 2.c 
-			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis.</p>"
-			+ "<table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenSano+"\" width=\"150px\"></td></tr>"
-			+ "<tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><p> Después de darte esa información, se te presentará la ficha del siguiente paciente. "
-			+ "<br> Cuando hayas visto a un cierto número de pacientes pasaremos a la siguiente fase.</p>",
-					
-			//6: Instrucciones de la tarea de ALERGIAS 
-			"<p><h3 class=\"titulo\">Instrucciones</h3>Ya has terminado esta fase del estudio de "+grupoBatatrim.nombreSindrome +". Como has visto, la tasa de recuperación de los pacientes que han recibido \"Batatrim\" ha sido "+grupoPlacebo.textoTransitAlta+". <br><br> Después de ver los resultados anteriores, se te ha invitado a participar en un nuevo experimento con un grupo de población distinto al del experimento piloto.</p>",
-		
-			//6: Instrucciones 1b Phase 2: 
-			"<p><h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una nueva serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". En cada ficha verás un paciente y se te dará la oportunidad de administrarle o no el \"Batatrim\". <br></p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table>",
-					
-			//7: Instrucciones 2 Phase 2
-			"<h3 class=\"titulo\">Instrucciones</h3><p>A continuación te informaremos de si el paciente superó la crisis. </p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><br><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br> Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
-					
-			// A guardar datos via Firebase!  
-			//13: Save Data...
+			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis."
+			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
+			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
+			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
+			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". "
+			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
+
+			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
+		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
+		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+grupoBatatrim.Juicio+".</p>" 
+			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
+ 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
+			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
+							
+			// A guardar datos! 
+			//13: Save Data... 
 			"<h3 class=\"titulo\">Envío de datos</h3><p>A continuación podrás enviar los resultados para que se incluyan en nuestro estudio. Los datos que nos aportes se unirán a los del grupo y serán analizados estadísticamente.</p><p align=\"left\"> Para hacerlo, haz click en el botón \"Enviar\".</p>",
-					
+			
 			//13:
 			"<h3 class=\"titulo\">Ya has terminado. ¡Muchas gracias por tu colaboración!</h3><p>El experimento que acabas de realizar está directamente relacionado con la materia explicada en el Capítulo 3 del libro “Psicología del Aprendizaje” que utilizas en tu asignatura del mismo nombre, concretamente con el concepto de “Contingencia” explicado en el apartado 2.1 de dicho capítulo. Para más información no dudes en ponerte en contacto con los autores del estudio.<br>"
 				+" <br>Autores:<br>Carlos Vera, Pedro Montoro, Cristina Orgaz y María José Contreras.</p>"
@@ -1038,38 +1038,47 @@ function prepararTextos(){
 		if (testeo == 1){ 
 			console.log("Preparando textos para grupo Híbrido");			//debug
 		}		
-		arrayInstruc=[ // Instrucciones para grupo Hibrido
-			//0: (portada)  
-			"<h2 class=\"titulo\">ESTUDIO CVTD22XX2</h2><p>¡Muchas gracias por participar en esta investigación, no seria posible sin ti!</p><br><br><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"img/uned.png\" width=\"200px\"><p>Sigue las instrucciones que encontrarás a continuación.</p>",
-				
-			// EXPERIMENTAL! Instrucciones para la fase previa
-			//2: Instrucciones 1
-			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+".<br>",
-						
-			//3: Instrucciones 2.a // 
-			"<h3 class=\"titulo\">Instrucciones</h3><p> Como parte de un experimento piloto de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". <br><br>En cada ficha verás un paciente al que se ha administrado \"Batatrim\" y se te pedirá intentar predecir si va a superar la crisis o no. </p>",
-					
-			//4: Instrucciones 2.b 
-			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes intentar predecir si va a superar la crisis o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br>"
-			+ "<table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Va a superar la crisis</td><td>No va a superar la crisis</td></tr></table><br><br>",
-					
-			//5: Instrucciones 2.c // 
-			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis.</p><table style=\"text-align: center; align-content: center; border:"
-			+ " 0px; width: 100%;\"><tr><td><img src=\""+grupoPlacebo.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoPlacebo.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><p> Después de darte esa información, se te presentará la ficha del siguiente paciente.<br> Cuando hayas visto a un cierto número de pacientes pasaremos a la siguiente fase.</p>",
-					
-			//6: Instrucciones de la tarea de ALERGIAS
-			"<p><h3 class=\"titulo\">Instrucciones</h3>Ya has terminado esta fase del estudio de "+grupoBatatrim.nombreSindrome +". Como has visto, la tasa de recuperación de los pacientes que han recibido \"Batatrim\" ha sido "+grupoPlacebo.textoTransitBaja+". <br><br> Después de ver los resultados anteriores, se te ha invitado a participar en un nuevo experimento con un grupo de población distinto al del experimento piloto.</p>",
+		arrayInstruc=[
+			//0: (portada) 
+			"<h2 class=\"titulo\">ESTUDIO CVTD23XX2</h2><p>¡Muchas gracias por participar en esta investigación, no seria posible sin ti!</p><br><br><img style=\"display"
+			+ ": block; margin-left: auto; margin-right: auto;\" src=\"img/uned.png\" width=\"200px\"><p>Sigue las instrucciones que encontrarás a continuación.</p>",
+		
+			//2: Instrucciones 1 
+			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
+			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+", pero esta medicina aún está en " 
+			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
-			//6: Instrucciones 1b Phase 2:
-			"<p><h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una nueva serie de fichas médicas de pacientes que están sufriendo una crisis del \"Síndrome de Lindsay\". En cada ficha verás un paciente y se te dará la oportunidad de administrarle o no el \"Batatrim\". <br></p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table>",
-					
-			//7: Instrucciones 2 Phase 2
-			"<h3 class=\"titulo\">Instrucciones</h3><p>A continuación te informaremos de si el paciente superó la crisis. </p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>Paciente enfermo</td><td>Paciente curado</td></tr></table><br><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
-					
-			// A guardar datos via Firebase!  
-			//13: Save Data...
+			//3: Instrucciones 2.a 
+			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
+				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
+				+ "de administrarle o no el "+grupoBatatrim.nombreClave+ ".</p>",
+			
+			//4: Instrucciones 2.b 
+			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
+			+ ""+grupoBatatrim.nombreClave+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width"
+			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
+			
+			//5: Instrucciones 2.c 
+			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis."
+			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
+			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
+			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
+			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". "
+			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
+
+			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
+		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
+		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+grupoBatatrim.Juicio+".</p>" 
+			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
+ 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
+			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
+							
+			// A guardar datos! 
+			//13: Save Data... 
 			"<h3 class=\"titulo\">Envío de datos</h3><p>A continuación podrás enviar los resultados para que se incluyan en nuestro estudio. Los datos que nos aportes se unirán a los del grupo y serán analizados estadísticamente.</p><p align=\"left\"> Para hacerlo, haz click en el botón \"Enviar\".</p>",
-					
+			
 			//13:
 			"<h3 class=\"titulo\">Ya has terminado. ¡Muchas gracias por tu colaboración!</h3><p>El experimento que acabas de realizar está directamente relacionado con la materia explicada en el Capítulo 3 del libro “Psicología del Aprendizaje” que utilizas en tu asignatura del mismo nombre, concretamente con el concepto de “Contingencia” explicado en el apartado 2.1 de dicho capítulo. Para más información no dudes en ponerte en contacto con los autores del estudio.<br>"
 				+" <br>Autores:<br>Carlos Vera, Pedro Montoro, Cristina Orgaz y María José Contreras.</p>"
