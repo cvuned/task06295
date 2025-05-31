@@ -275,11 +275,11 @@ function asignagrupo() {
 		if (grouplist[i] < grouplist[grupoAsignado]) {
 			grupoAsignado = i;
 		}
-		if(testeo === 1){
-			console.log("El GRUPO asignado es el: "+groupNames[grupoAsignado]+".");		//debug
-			console.log("El grupo asignado es el: "+grupoAsignado+".");					// debug
-			console.log("Grupo asignado aleatorio es el:"+grupoAsignado+".") 				// debug
-		}
+	if(testeo === 1){
+		console.log("El GRUPO asignado es el: "+groupNames[grupoAsignado]+".");		//debug
+		//console.log("El grupo asignado es el: "+grupoAsignado+".");					// debug
+		console.log("Grupo asignado aleatorio es el:"+grupoAsignado+".") 				// debug
+	}
 	}
 
 	// TODO ESTE BLOQUE SIGUIENTE CHECKEA LAS PROBABILIDADES: 
@@ -687,7 +687,7 @@ function showJuicio(){
     ocultar(divTextos);
 	
 	textoJuicio= "<p class=\"pregunta\">¿Hasta qué punto crees que el "+
-			training[fase].nombreClave+" es efectivo para curar las crisis del "+training[fase].nombreSindrome+"?</p>";
+			training[fase].nombreClave[0]+" es efectivo para curar las crisis del "+training[fase].nombreSindrome+"?</p>";
 	
 
 	textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: Nada efectivo.</li><li>100: Completamente efectivo.</li></ul><p>Puedes hacer clic dentro de la escala tantas veces como desees hasta marcar el valor que consideres más adecuado. Cualquier valor entre 0 y 100 es válido. También puedes usar las flechas del teclado (izquierda / derecha) para ajustar el valor de la respuesta con más precisión. </p><br><br>";
@@ -718,7 +718,7 @@ function showNPS(){
 	ocultar(divContingencia);
     ocultar(divTextos);
  
-	textoNPS= "<p class=\"pregunta\">¿Recomendarías a un familiar o amigo tomar "+training[fase].nombreClave+"?</p>";
+	textoNPS= "<p class=\"pregunta\">¿Recomendarías a un familiar o amigo tomar "+training[fase].nombreClave[0]+"?</p>";
 	textoInstruccionesNPS="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: En absoluto.</li><li>10: Completamente seguro.</li></ul></p><br><br>";
 	textoNPS = textoNPS.concat(textoInstruccionesNPS);
 	pintarHTML('divPreguntaNPS', textoNPS);
@@ -743,7 +743,7 @@ function showConfianza(){
     ocultar(divContingencia);
     ocultar(divTextos);
 
-	textoConfianza= "<p class=\"pregunta\">En una escala del 0 al 10, ¿cómo de probable es que recomendaras a un paciente tomar "+training[fase].nombreClave+"?</p>";
+	textoConfianza= "<p class=\"pregunta\">En una escala del 0 al 10, ¿cómo de probable es que recomendaras a un paciente tomar "+training[fase].nombreClave[0]+"?</p>";
 	textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: No lo recomendaría en absoluto.</li><li>10: Lo recomendaría con total seguridad.</li></ul></p><br><br>";
 	textoConfianza = textoConfianza.concat(textoInstrucciones);
 	pintarHTML('divPregunta', textoConfianza);
@@ -1011,18 +1011,18 @@ function prepararTextos(){
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
 			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+", pero esta medicina aún está en " 
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave[0]+", pero esta medicina aún está en " 
 			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
 				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
-				+ "de administrarle o no el "+grupoBatatrim.nombreClave+ ".</p>",
+				+ "de administrarle o no el "+grupoBatatrim.nombreClave[0]+ ".</p>",
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+grupoBatatrim.nombreClave+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width"
+			+ ""+grupoBatatrim.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave[0]+"\" width"
 			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
@@ -1030,7 +1030,7 @@ function prepararTextos(){
 			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
 			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
-			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". "
+			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave[0]+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
@@ -1063,18 +1063,18 @@ function prepararTextos(){
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
 			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+", pero esta medicina aún está en " 
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave[0]+", pero esta medicina aún está en " 
 			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
 				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
-				+ "de administrarle o no el "+grupoBatatrim.nombreClave+ ".</p>",
+				+ "de administrarle o no el "+grupoBatatrim.nombreClave[0]+ ".</p>",
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+grupoBatatrim.nombreClave+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width"
+			+ ""+grupoBatatrim.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave[0]+"\" width"
 			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
@@ -1082,7 +1082,7 @@ function prepararTextos(){
 			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
 			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
-			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". "
+			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave[0]+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
@@ -1105,7 +1105,7 @@ function prepararTextos(){
 	else{			
 
 		if (testeo == 1){ 
-			console.log("Preparando textos para grupo Híbrido");			//debug
+			console.log("Preparando textos para grupo Híbrido");			//debug HIBRIDO
 		}		
 		arrayInstruc=[
 			//0: (portada) 
