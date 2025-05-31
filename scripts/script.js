@@ -326,7 +326,7 @@ function generaEnsayos(){
 	// Iterate over arrayOutcome and assign drugs randomly
     for (let i = 0; i < arrayOutcome.length; i++) {	
         let outcome = arrayOutcome[i]; // either 0 or 1
-		console.log(outcome)
+		//console.log(outcome)
         let availableDrugs = [];
 		
 		//console.log("Available drugs:");
@@ -357,9 +357,9 @@ function generaEnsayos(){
 		}
 	}
 
-    console.log("Drug distribution:");
-	console.log(arrayOptions)
-	console.log(arrayOutcome)
+    //console.log("Drug distribution:");
+	//console.log(arrayOptions)
+	//console.log(arrayOutcome)
 	grupoBatatrim.posibleOutcomes=arrayOutcome;
 	grupoPlacebo.posibleOutcomes=arrayOutcome;
 	grupoHibrido.posibleOutcomes=arrayOutcome;
@@ -369,7 +369,7 @@ function generaEnsayos(){
 	grupoHibrido.posibleOptions=arrayOptions;
 }
 // Test the function
-function testFunction() {
+function testFunctionEnsayosGenerados() {
 
 	// Esta función comprueba que se hayan repartido bien: 	
 	arrayOutcome=grupoHibrido.posibleOutcomes;
@@ -1280,7 +1280,10 @@ function cuestionarioEdad(){
 	prepararTextos();   
 	generaEnsayos();
 	// Run test
-	testFunction();
+	if(testeo === 1){
+		console.log("Running test")
+		testFunctionEnsayosGenerados();
+	}
 	document.querySelector('input[name="edad"]').value="";
     
 	/////// Aquí vamos a aprovechar para enviar a Firebase los datos de nuestro participante
