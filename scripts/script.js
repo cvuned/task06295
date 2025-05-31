@@ -315,10 +315,6 @@ function generaEnsayos(){
 		block=shuffle(block);
 		arrayOutcomearrayOutcome = arrayOutcome.concat(block);
 	}
-	grupoBatatrim.posibleOutcomes=arrayOutcome;
-	grupoPlacebo.posibleOutcomes=arrayOutcome;
-	grupoHibrido.posibleOutcomes=arrayOutcome;
-
 	// Ahora generamos la secuencia de ensayos de Batatrim y Glucosa para asegurar el reparto igual.
 	 // Create arrayOptions with balanced drug assignment
     let arrayOptions = new Array(100).fill(0);
@@ -352,17 +348,16 @@ function generaEnsayos(){
 	grupoPlacebo.posibleOutcomes=arrayOutcome;
 	grupoHibrido.posibleOutcomes=arrayOutcome;
 
-	grupoBatatrim.posibleOptions=arrayOutcome;
-	grupoPlacebo.posibleOptions=arrayOutcome;
-	grupoHibrido.posibleOptions=arrayOutcome;
+	grupoBatatrim.posibleOptions=new Array(100).fill(0);
+	grupoPlacebo.posibleOptions=new Array(100).fill(1);
+	grupoHibrido.posibleOptions=arrayOptions;
 }
 // Test the function
 function testFunction() {
-    const result = generaEnsayos();
-    const { arrayOutcome, arrayOptions } = result;
-    
-    console.log("ArrayOutcome:", arrayOutcome);
-    console.log("ArrayOptions:", arrayOptions);
+
+	// Esta función comprueba que se hayan repartido bien: 	
+	arrayOutcome=grupoHibrido.posibleOutcomes;
+	arrayOptions=grupoHibrido.posibleOptions;
     
     // Verify constraints
     let onesInOutcome = arrayOutcome.filter(x => x === 1).length;
