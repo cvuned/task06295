@@ -313,7 +313,7 @@ function generaEnsayos(){
 	for(var i=0; i<10; i++){ //creo 10 bloques de 10 con 30%/70% de éxito
 		var block= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
 		block=shuffle(block);
-		arrayOutcomearrayOutcome = arrayOutcome.concat(block);
+		arrayOutcome = arrayOutcome.concat(block);
 	}
 	// Ahora generamos la secuencia de ensayos de Batatrim y Glucosa para asegurar el reparto igual.
 	 // Create arrayOptions with balanced drug assignment
