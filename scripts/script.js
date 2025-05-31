@@ -11,7 +11,7 @@ var participantIP = "";
 //var Balanceo = Math.floor(Math.random()*2 + 1);
 var state=99;           //controla el ensayo dentro de cada fase
 var stateTexto=99;      //controla la pantalla de textos
-var fase = 0;           //controla en qué fase estamos
+var fase = 0;           //controla en qué fase estamos  ---> No es de aplicación, porque solo tenemos una fase
 var stateQuest = 1;     //controla en qué pregunta del cuestionario estamos
 var training=[];        //contendrá el array de ensayos
 var data=[];            //contendrá los datos.
@@ -290,21 +290,10 @@ function asignagrupo() {
 	group= "No asignado";	
 	// En función del número de participantes que hayan realizado la tarea en la secuencia normal
 	// y de contrabalanceo, asigna a un grupo o a otro al participante. 
-	if(grupoAsignado == 2){
-
-		training=[grupoBatatrim];
-		group= "Grupo Placebo"; 
-	}
-	else if(grupoAsignado == 1){
-		training=[grupoPlacebo];
-		group= "EGrupo Placebo"; 
-	}
-	else{
-		training=[grupoHibrido];
-		group= "Grupo Hibrido"; 
-	}
+	training=misGrupos[grupoAsignado];
+	
 	if(testeo === 1){
-		console.log("Pues te ha tocado grupo :"+group+".");		//debug
+		console.log("Pues te ha tocado grupo :"+groupNames[grupoAsignado]+".");		//debug
 	}
 }    
 //++++++++++++++++++++++++++++++++++++++
@@ -675,7 +664,7 @@ function ITI(){
 		// Esta siguiente línea se activa si estamos en la fase de creación de expectativas 
 		if(training[fase] == grupoPlacebo){
 			//console.log("Estamos en la fase de manipulación");		 // Comentarios para debug
-			cambiafase();
+			// cambiafase();  // COMENTAMOS PORQUE SOLO HAY 1 FASE
 		}
 		else{
 			//console.log("Esta es la fase de test de verdad");			 // Comentarios para debug
@@ -843,7 +832,7 @@ function validaJuicio(){
 		}
 		else if(confianzaevaluada==1){
 			prepararTextos();
-			cambiafase();
+			//cambiafase(); // COMENTAMOS PORQUE SOLO HAY 1 FASE
 		}
         
 	}
@@ -1003,6 +992,7 @@ function previoTexto(){
 // Inicializamos el arrayInstruc con el modo grupos experimentales (grupos A y B)
 
 function prepararTextos(){
+	// En esta función tenemos la llamada a los Cuestionarios de Edad, ver después del array de instrucciones. 
 	if(grupoAsignado == 0){ // Instrucciones para grupo de solo Batatrim: 
 		if (testeo == 1){ 
 			console.log("Preparando textos para grupo de solo Batatrim");			//debug
@@ -1159,6 +1149,8 @@ function prepararTextos(){
 		];
 	}
 	
+	// Aquí tenemos la llamada al cuestionarioEdad. //// ESTO VA A HACER FALTA REVISAR, PORQUE NO ERCUERDO QUÉ DIFERENCIAS HABÍA AQUÍ EN LOS BOTONES... 
+	// Básicament esta es la función que va haciendo que avance el experimento. 
 	if(grupoAsignado>3){
 
 		//console.log("Preparando botones para grupo de CONTROL");		 // Comentarios para debug
@@ -1281,8 +1273,8 @@ function cuestionarioEdad(){
 	// Aquí mientras se rellenan los cuestionarios lanzamos la llamada a Firebase 
 	// para calcular grupos y tal
 	asignagrupo(); 
-	prepararTextos();   
-	generaEnsayos();
+	prepararTextos();   	// ???? Por qué lo llamamos aquí si ya lo hemos llamado?? Es para que vuelva? Hummm. 
+	generaEnsayos();		// Esta función genera el orden de recuperación o no, y qué medicamento dar a los participantes. 
 	// Run test
 	if(testeo === 1){
 		console.log("Running test")
@@ -1295,9 +1287,6 @@ function cuestionarioEdad(){
 	startData = "A participant has started with ID " + personId +" with IP:"+ participantIP;
 	if (testeo == 0){ 
 		guardaFirebase(startData, 'mySurvivalLogs');
-	}
-	else{
-		console.log(startData);
 	}
 	///////
     var HTMLboton = "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='validaEdad()' value='Continuar'/>";
