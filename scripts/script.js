@@ -7,7 +7,7 @@
 //var personId = Math.floor((Math.random() * 1000000) + 1);
 var personId = processText(stringDate());
 var participantIP = "";
-var group =99; 
+//var group =99; 
 //var Balanceo = Math.floor(Math.random()*2 + 1);
 var state=99;           //controla el ensayo dentro de cada fase
 var stateTexto=99;      //controla la pantalla de textos
@@ -318,28 +318,84 @@ function generaEnsayos(){
 	grupoBatatrim.posibleOutcomes=arrayOutcome;
 	grupoPlacebo.posibleOutcomes=arrayOutcome;
 	grupoHibrido.posibleOutcomes=arrayOutcome;
+
+	// Ahora generamos la secuencia de ensayos de Batatrim y Glucosa para asegurar el reparto igual.
+	 // Create arrayOptions with balanced drug assignment
+    let arrayOptions = new Array(100).fill(0);
+    
+    // drug0[0] = slots for when arrayOutcome[i] = 0, drug0[1] = slots for when arrayOutcome[i] = 1
+    let drug0 = [15, 35]; // 15 zeros, 35 ones --> 35 éxitos 
+    let drug1 = [15, 35]; // 15 zeros, 35 ones --> 35 éxitos 
+
+	// Iterate over arrayOutcome and assign drugs randomly
+    for (let i = 0; i < arrayOutcome.length; i++) {
+        let outcome = arrayOutcome[i]; // either 0 or 1
+        let availableDrugs = [];
+        // Check which drugs still have slots available for this outcome
+		if (drug0[outcome] > 0) availableDrugs.push(0);
+		if (drug1[outcome] > 0) availableDrugs.push(1);
+				
+		// Randomly choose one of the available drugs
+		if (availableDrugs.length > 0) {
+			let chosenDrug = availableDrugs[Math.floor(Math.random() * availableDrugs.length)];
+			arrayOptions[i] = chosenDrug;
+			// Subtract 1 from the chosen drug's slot for this outcome
+			if (chosenDrug === 0) {
+				drug0[outcome]--;
+			} else {
+				drug1[outcome]--;
+			}
+		}
+	}
+
+	grupoBatatrim.posibleOutcomes=arrayOutcome;
+	grupoPlacebo.posibleOutcomes=arrayOutcome;
+	grupoHibrido.posibleOutcomes=arrayOutcome;
+
+	grupoBatatrim.posibleOptions=arrayOutcome;
+	grupoPlacebo.posibleOptions=arrayOutcome;
+	grupoHibrido.posibleOptions=arrayOutcome;
+}
+// Test the function
+function testFunction() {
+    const result = generaEnsayos();
+    const { arrayOutcome, arrayOptions } = result;
+    
+    console.log("ArrayOutcome:", arrayOutcome);
+    console.log("ArrayOptions:", arrayOptions);
+    
+    // Verify constraints
+    let onesInOutcome = arrayOutcome.filter(x => x === 1).length;
+    let zerosInOutcome = arrayOutcome.filter(x => x === 0).length;
+    let drug0Count = arrayOptions.filter(x => x === 0).length;
+    let drug1Count = arrayOptions.filter(x => x === 1).length;
+    
+    console.log(`\nVerification:`);
+    console.log(`ArrayOutcome - Ones: ${onesInOutcome}, Zeros: ${zerosInOutcome}`);
+    console.log(`ArrayOptions - Drug0: ${drug0Count}, Drug1: ${drug1Count}`);
+    
+    // Check the distribution for each drug
+    let drug0_with_outcome0 = 0, drug0_with_outcome1 = 0;
+    let drug1_with_outcome0 = 0, drug1_with_outcome1 = 0;
+    
+    for (let i = 0; i < 100; i++) {
+        if (arrayOptions[i] === 0) { // Drug 0
+            if (arrayOutcome[i] === 0) drug0_with_outcome0++;
+            else drug0_with_outcome1++;
+        } else { // Drug 1
+            if (arrayOutcome[i] === 0) drug1_with_outcome0++;
+            else drug1_with_outcome1++;
+        }
+    }
+    
+    console.log(`\nDrug distribution:`);
+    console.log(`Drug0 - with outcome 0: ${drug0_with_outcome0}, with outcome 1: ${drug0_with_outcome1}`);
+    console.log(`Drug1 - with outcome 0: ${drug1_with_outcome0}, with outcome 1: ${drug1_with_outcome1}`);
+    console.log(`Target for each drug: 15 zeros, 35 ones`);
+    
+    return result;
 }
 
-function generaEnsayosMixtos(){
-	// Esta función genera una secuencia de ensayos donde unos serán con Batatrim y otros serán con 
-	// cápsulas de glucosa. Para ello, dividimos el total de ensayos entre 10 bloques de 10 
-	// [grupoH = 0, grupoP = 1, grupoB = 2] 
-	for(var i=0; i<10; i++){ //creo 10 bloques de 10 con 50% para cada opción
-		if(grupoAsignado == 0){  		// grupos híbrido
-			var arrayOpciones= [1, 1, 1, 1, 1, 0, 0, 0, 0, 0];
-		}
-		else if(grupoAsignado == 1){  	// grupo de todo Placebo
-			var arrayOpciones= [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-		}
-		else{        					// grupo de todo Batatrim
-			var arrayOpciones= [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-		}  
-		arrayOpciones=shuffle(arrayOpciones);
-		grupoHibrido.queSolucion=grupoHibrido.queSolucion.concat(arrayOpcionese);   
-		grupoPlacebo.queSolucion=grupoPlacebo.queSolucion.concat(arrayOpciones);   
-		grupoBatatrim.queSolucion=grupoBatatrim.queSolucion.concat(arrayOpciones);      
-	}
-}
 if(testeo === 1){
 	grupoHibrido.numTrials = 2;
 	grupoPlacebo.numTrials = 2;
@@ -1212,7 +1268,8 @@ function cuestionarioEdad(){
 	asignagrupo(); 
 	prepararTextos();   
 	generaEnsayos();
-	generaEnsayosMixtos();
+	// Run test
+	testFunction();
 	document.querySelector('input[name="edad"]').value="";
     
 	/////// Aquí vamos a aprovechar para enviar a Firebase los datos de nuestro participante
