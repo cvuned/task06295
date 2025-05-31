@@ -324,13 +324,26 @@ function generaEnsayos(){
     let drug1 = [15, 35]; // 15 zeros, 35 ones --> 35 éxitos 
 
 	// Iterate over arrayOutcome and assign drugs randomly
-    for (let i = 0; i < arrayOutcome.length; i++) {
+    for (let i = 0; i < arrayOutcome.length; i++) {	
         let outcome = arrayOutcome[i]; // either 0 or 1
+		console.log(outcome)
         let availableDrugs = [];
-        // Check which drugs still have slots available for this outcome
-		if (drug0[outcome] > 0) availableDrugs.concat(0);
-		if (drug1[outcome] > 0) availableDrugs.concat(1);
 		
+		//console.log("Available drugs:");
+		//console.log(drug0);
+		//console.log(drug0[outcome]);
+		//console.log(drug1);
+		//console.log(drug1[outcome]);
+        // Check which drugs still have slots available for this outcome
+		if (drug0[outcome] > 0){
+			//console.log("yes, we can add drug0");
+			availableDrugs.push(0);
+		} 
+		if (drug1[outcome] > 0) {
+			//console.log("yes, we can add drug1");
+			availableDrugs.push(1);
+		}
+		//console.log(availableDrugs)		
 		// Randomly choose one of the available drugs
 		if (availableDrugs.length > 0) {
 			let chosenDrug = availableDrugs[Math.floor(Math.random() * availableDrugs.length)];
