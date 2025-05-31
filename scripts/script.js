@@ -46,8 +46,8 @@ var grupoP = 0;	//  Solo Placebo
 var grupoB = 0;	// Control -- Solo Batatrim
 
 // Esta variable realmente se verá como la variable: grupoAsignado
-// [grupoH = 0, grupoP = 1, grupoB = 2] 
-var groupNames = ["hibrido", "placebo", "batatrim"];		//Usado para extraer datos
+// [grupoB = 0, grupoP = 1, grupoH = 2] 
+var groupNames = ["batatrim", "placebo", "hibrido"];		//Usado para extraer datos
 
 
 // creamos un array para ver el número de participantes en cada grupo
@@ -58,12 +58,7 @@ var tempShuffled = shuffle(tempArray);
 var grupoAsignado = tempShuffled[0]; 	// Elige un grupo al azar
 
 
-//++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++
-//Funciones generales:
-//++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++
+
 // Esta variable la usaremos para el grupo de SOLO BATATRIM
 var grupoBatatrim = {
 	nombreClave: ["\"Batatrim\"","\"Batatrim\""],
@@ -157,8 +152,16 @@ var FaseControl = {   // Esto debería sobrar, luego revisamos.
 	TiemposRespuesta: [],
 };
 
+// Agrupamos las variables que hemos sacado antes en "misGrupos": 
 misGrupos = [grupoBatatrim, grupoPlacebo, grupoHibrido];
 
+
+//++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++
+//Funciones generales:
+//++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++
 
 //función para inyectar HTML:
 function pintarHTML(targetDiv, htmlContenido){ 
@@ -1000,7 +1003,7 @@ function previoTexto(){
 // Inicializamos el arrayInstruc con el modo grupos experimentales (grupos A y B)
 
 function prepararTextos(){
-	if(grupoAsignado == 2){ // Instrucciones para grupo de solo Batatrim: 
+	if(grupoAsignado == 0){ // Instrucciones para grupo de solo Batatrim: 
 		if (testeo == 1){ 
 			console.log("Preparando textos para grupo de solo Batatrim");			//debug
 		}
@@ -1401,7 +1404,7 @@ function saveData(){
     
     var BalanceoContingencia = grupoBatatrim.Contingencia+"-"+grupoPlacebo.Contingencia;
      
-	if(grupoAsignado == 0){  // En esta caso estamos en un participante del grupo de control
+	if(grupoAsignado == 0){  // En esta caso estamos en un participante del grupo de BATATRUN
 		data = 
 			"ExpCVTD22XX2" + "," + 
 			groupNames[grupoAsignado] + "," + 
@@ -1420,7 +1423,7 @@ function saveData(){
 			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
 			fecha
 	}
-	else if(grupoAsignado == 1){  // En esta caso estamos en un participante del grupo de control
+	else if(grupoAsignado == 1){  // En esta caso estamos en un participante del grupo de PLACEBO
 		data = 
 			"ExpCVTD22XX2" + "," + 
 			groupNames[grupoAsignado] + "," + 
@@ -1439,7 +1442,7 @@ function saveData(){
 			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
 			fecha
 	}
-	else{
+	else{				// En esta caso estamos en un participante del grupo HIBRIDO
 		data = 
 			"ExpCVTD22XX2" + "," + 
 			groupNames[grupoAsignado] + "," + 
