@@ -128,30 +128,6 @@ var grupoHibrido = {
 	TiemposRespuesta: [],
 };
 
-var FaseControl = {   // Esto debería sobrar, luego revisamos. 
-	nombreClave: "\"Batatrim\"",
-	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/BatatrimBoton.png",
-	ImagenNOClave: "img/noBatatrimBoton.png",
-	ImagenSindrome: "img/NooutcomeNuevo.png",
-	ImagenSano: "img/outcomeNuevo.png",
-	textoIntroControl: "Sin embargo, esta medicina aún está en fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.",
-	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
-	textoYES: "Has administrado \"Batatrim\"",
-	textoNO: "No has administrado \"Batatrim\"",
-	numTrials: 50,
-	posibleOutcome: [],
-	secuenciaCells: [],
-	secuenciaResps: [],
-	posibleOptions: [], // Esto lo dejamos para que todos los grupos tengan los datos ordenados igual
-	secuenciaCells: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
-	secuenciaResps: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
-	Juicio: 999,
-	Confianza: 999,
-	TiemposRespuesta: [],
-};
-
 // Agrupamos las variables que hemos sacado antes en "misGrupos": 
 misGrupos = [grupoBatatrim, grupoPlacebo, grupoHibrido];
 
@@ -259,7 +235,7 @@ function arranca(){
 	state=0;
     stateTexto=0;
     fase=0;
-
+	asignagrupo();
     prepararTextos();   
 	pregInduccion();      
 	//setTimeout(function() {
@@ -294,6 +270,7 @@ function asignagrupo() {
 	
 	if(testeo === 1){
 		console.log("Pues te ha tocado grupo :"+groupNames[grupoAsignado]+".");		//debug
+		console.log(training.nombreClave[0]);
 	}
 }    
 //++++++++++++++++++++++++++++++++++++++
@@ -1004,32 +981,32 @@ function prepararTextos(){
 		
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
-			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave[0]+", pero esta medicina aún está en " 
+			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ training.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ training.nombreClave[0]+", pero esta medicina aún está en " 
 			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
-				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
-				+ "de administrarle o no el "+grupoBatatrim.nombreClave[0]+ ".</p>",
+				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+training.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
+				+ "de administrarle o no el "+training.nombreClave[0]+ ".</p>",
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+grupoBatatrim.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave[0]+"\" width"
+			+ ""+training.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+training.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+training.ImagenNOClave[0]+"\" width"
 			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
 			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis."
 			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
-			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
+			+ "<tr><td><img src=\""+training.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+training.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
-			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave[0]+ ". "
+			+ "Intenta averiguar hasta qué punto es efectivo el "+training.nombreClave[0]+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
 		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+grupoBatatrim.Juicio+".</p>" 
+		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
  	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
 			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
@@ -1056,32 +1033,32 @@ function prepararTextos(){
 		
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
-			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave[0]+", pero esta medicina aún está en " 
+			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ training.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ training.nombreClave[0]+", pero esta medicina aún está en " 
 			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
-				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
-				+ "de administrarle o no el "+grupoBatatrim.nombreClave[0]+ ".</p>",
+				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+training.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
+				+ "de administrarle o no el "+training.nombreClave[0]+ ".</p>",
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+grupoBatatrim.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave[0]+"\" width"
+			+ ""+training.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+training.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+training.ImagenNOClave[0]+"\" width"
 			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
 			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis."
 			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
-			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
+			+ "<tr><td><img src=\""+training.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+training.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
-			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave[0]+ ". "
+			+ "Intenta averiguar hasta qué punto es efectivo el "+training.nombreClave[0]+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
 		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+grupoBatatrim.Juicio+".</p>" 
+		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
  	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
 			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
@@ -1108,32 +1085,32 @@ function prepararTextos(){
 		
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
-			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave[0]+", pero esta medicina aún está en " 
+			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ training.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ training.nombreClave[0]+", pero esta medicina aún está en " 
 			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
-				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
-				+ "de administrarle o no el "+grupoBatatrim.nombreClave[0]+ ".</p>",
+				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+training.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
+				+ "de administrarle o no el "+training.nombreClave[0]+ ".</p>",
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+grupoBatatrim.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave[0]+"\" width"
+			+ ""+training.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+training.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+training.ImagenNOClave[0]+"\" width"
 			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
 			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis."
 			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
-			+ "<tr><td><img src=\""+FaseControl.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+FaseControl.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
+			+ "<tr><td><img src=\""+training.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+training.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
-			+ "Intenta averiguar hasta qué punto es efectivo el "+grupoBatatrim.nombreClave+ ". "
+			+ "Intenta averiguar hasta qué punto es efectivo el "+training.nombreClave[0]+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
 		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+grupoBatatrim.Juicio+".</p>" 
+		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
  	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
 			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
@@ -1272,8 +1249,8 @@ function cuestionarioEdad(){
 	
 	// Aquí mientras se rellenan los cuestionarios lanzamos la llamada a Firebase 
 	// para calcular grupos y tal
-	asignagrupo(); 
-	prepararTextos();   	// ???? Por qué lo llamamos aquí si ya lo hemos llamado?? Es para que vuelva? Hummm. 
+	//asignagrupo(); 
+	//prepararTextos();   	// ???? Por qué lo llamamos aquí si ya lo hemos llamado?? Es para que vuelva? Hummm. 
 	generaEnsayos();		// Esta función genera el orden de recuperación o no, y qué medicamento dar a los participantes. 
 	// Run test
 	if(testeo === 1){
@@ -1386,70 +1363,31 @@ function saveData(){
 
     stringDate();
     
-    var Fase1countCells = new Map([...new Set(grupoBatatrim.secuenciaCells)].map(
-    x => [x, grupoBatatrim.secuenciaCells.filter(y => y === x).length]));
-    var Fase2countCells = new Map([...new Set(grupoPlacebo.secuenciaCells)].map(
-    x => [x, grupoPlacebo.secuenciaCells.filter(y => y === x).length]));
-    
-    var BalanceoContingencia = grupoBatatrim.Contingencia+"-"+grupoPlacebo.Contingencia;
-     
-	if(grupoAsignado == 0){  // En esta caso estamos en un participante del grupo de BATATRUN
-		data = 
-			"ExpCVTD22XX2" + "," + 
-			groupNames[grupoAsignado] + "," + 
-			personId + "," +                		//ID aleatorio
-			participantIP + "," +					// IP del participante //Modified for testing TFK
-			Age + "," +         		
-			Gender + "," +		
-			grupoBatatrim.Juicio + "," + 				//Juicio 
-			grupoBatatrim.Confianza + "," + 				//Confianza
-			grupoBatatrim.secuenciaResps + "," + 		//Secuencia de respuestas dada
-			grupoBatatrim.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
-			grupoBatatrim.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
-			FaseControl.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
-			FaseControl.posibleOutcomes + "," + 	//Fase 2 - Secuencia de resultados de éxito presentada
-			FaseControl.secuenciaCells + "," +  	//Fase 2 - Secuencia de combinaciones acción-éxito
-			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
-			fecha
-	}
-	else if(grupoAsignado == 1){  // En esta caso estamos en un participante del grupo de PLACEBO
-		data = 
-			"ExpCVTD22XX2" + "," + 
-			groupNames[grupoAsignado] + "," + 
-			personId + "," +                		//ID aleatorio
-			participantIP + "," +					// IP del participante //Modified for testing TFK
-			Age + "," +         		
-			Gender + "," +		
-			grupoBatatrim.Juicio + "," + 				//Juicio 
-			grupoBatatrim.Confianza + "," + 				//Confianza
-			grupoBatatrim.secuenciaResps + "," + 		//Secuencia de respuestas dada
-			grupoBatatrim.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
-			grupoBatatrim.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
-			FaseControl.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
-			FaseControl.posibleOutcomes + "," + 	//Fase 2 - Secuencia de resultados de éxito presentada
-			FaseControl.secuenciaCells + "," +  	//Fase 2 - Secuencia de combinaciones acción-éxito
-			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
-			fecha
-	}
-	else{				// En esta caso estamos en un participante del grupo HIBRIDO
-		data = 
-			"ExpCVTD22XX2" + "," + 
-			groupNames[grupoAsignado] + "," + 
-			personId + "," +                		//ID aleatorio
-			participantIP + "," +					// IP del participante //Modified for testing TFK
-			Age + "," +         		
-			Gender + "," +		
-			grupoBatatrim.Juicio + "," + 				//Juicio 
-			grupoBatatrim.Confianza + "," + 				//Confianza
-			grupoBatatrim.secuenciaResps + "," + 		//Secuencia de respuestas dada
-			grupoBatatrim.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
-			grupoBatatrim.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
-			grupoPlacebo.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
-			grupoPlacebo.posibleOutcomes + "," + 		//Fase 2 - Secuencia de resultados de éxito presentada
-			grupoPlacebo.secuenciaCells + "," + 	 	//Fase 2 - Secuencia de combinaciones acción-éxito
-			grupoBatatrim.TiemposRespuesta + "," + 		//Tiempos de respuesta 
-			fecha
-	}
+	// ESTO NO SE USA: 
+    //var Fase1countCells = new Map([...new Set(grupoBatatrim.secuenciaCells)].map(
+    //x => [x, grupoBatatrim.secuenciaCells.filter(y => y === x).length]));
+    //var Fase2countCells = new Map([...new Set(grupoPlacebo.secuenciaCells)].map(
+    //x => [x, grupoPlacebo.secuenciaCells.filter(y => y === x).length]));
+    //var BalanceoContingencia = grupoBatatrim.Contingencia+"-"+grupoPlacebo.Contingencia;
+  
+	data = 
+		"ExpCVTD22XX2" + "," + 
+		groupNames[grupoAsignado] + "," + 
+		personId + "," +                		//ID aleatorio
+		participantIP + "," +					// IP del participante //Modified for testing TFK
+		Age + "," +         		
+		Gender + "," +		
+		training.Juicio + "," + 				//Juicio 
+		training.Confianza + "," + 				//Confianza
+		training.secuenciaResps + "," + 		//Secuencia de respuestas dada
+		training.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
+		training.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
+		training.secuenciaResps + "," + 		//Fase 2 - Secuencia de respuestas dada
+		training.posibleOutcomes + "," + 	//Fase 2 - Secuencia de resultados de éxito presentada
+		training.secuenciaCells + "," +  	//Fase 2 - Secuencia de combinaciones acción-éxito
+		training.TiemposRespuesta + "," + 		//Tiempos de respuesta 
+		fecha
+
 
 	// la siguiente línea guarda un vector con los participantes. 
 	// Recordatorio de cómo se lee: 
