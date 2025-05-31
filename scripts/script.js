@@ -66,19 +66,19 @@ var grupoAsignado = tempShuffled[0]; 	// Elige un grupo al azar
 //++++++++++++++++++++++++++++++++++++++
 // Esta variable la usaremos para el grupo de SOLO BATATRIM
 var grupoBatatrim = {
-	nombreClave: "\"Batatrim\"",
+	nombreClave: ["\"Batatrim\"","\"Batatrim\""],
 	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/BatatrimBoton.png",
-	ImagenNOClave: "img/noBatatrimBoton.png",
+	ImagenClave: ["img/BatatrimBoton.png","img/BatatrimBoton.png"], 
+	ImagenNOClave: ["img/noBatatrimBoton.png","img/noBatatrimBoton.png"], 
 	ImagenSindrome: "img/NooutcomeNuevo.png",
 	ImagenSano: "img/outcomeNuevo.png",
 	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
-	textoYES: "Has administrado \"Batatrim\"",
-	textoNO: "No has administrado \"Batatrim\"",
+	textoPregunta: ["¿Quieres administrarle \"Batatrim\"?","¿Quieres administrarle \"Batatrim\"?"],
+	textoYES: ["Has administrado \"Batatrim\"","Has administrado \"Batatrim\""],
+	textoNO: ["No has administrado \"Batatrim\"","No has administrado \"Batatrim\""],
 	numTrials: 100,
 	posibleOutcomes: [],
-	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
+	posibleOptions: [], 	// 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
@@ -88,21 +88,20 @@ var grupoBatatrim = {
 };
 // Esta variable la usaremos para el grupo de SOLO PLACEBO
 var grupoPlacebo = {
-	nombreClave: "\"Batatrim\"",
+	nombreClave: ["\"Cápsula placebo de sacarosa \"","\"Cápsula placebo de sacarosa \""],
 	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/recuperaSi.png",
-	ImagenNOClave: "img/recuperaNo.png",
+	ImagenClave: ["img/PlaceboBoton.png","img/PlaceboBoton.png"],
+	ImagenNOClave: ["img/noPlaceboBoton.png","img/noPlaceboBoton.png"], 
 	ImagenSindrome: "img/Nooutcome.png",
 	ImagenSano: "img/outcome.png",
 	textoTransitAlta: "alta",
 	textoTransitBaja: "baja",
-	textoCue: "Este paciente tiene el Síndrome de Lindsay y se le ha administrado \"Batatrim\"",
-	textoPregunta: "¿Crees que va a recuperarse?",
-	textoYES: "Crees que se va a recuperar",
-	textoNO: "Crees que NO se va a recuperar",
+	textoPregunta: ["¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?","¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?"],
+	textoYES: ["Has administrado \"una Cápsula placebo de sacarosa \"","Has administrado \"una Cápsula placebo de sacarosa \""],
+	textoNO: ["No has administrado \"una Cápsula placebo de sacarosa \"","No has administrado \"una Cápsula placebo de sacarosa \""],
 	numTrials: 100,
 	posibleOutcomes: [],
-	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
+	posibleOptions: [], 	// 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
@@ -112,19 +111,20 @@ var grupoPlacebo = {
 };
 // Esta variable la usaremos para el grupo A de CONDICIÓN MIXTA PLACEBO & BATATRIM
 var grupoHibrido = {
-	nombreClave: "\"Batatrim\"",
+	// Index 0 = Batatrim, Index 1 = Placebo
+	nombreClave: ["\"Batatrim\"","\"Cápsula placebo de sacarosa \""],
 	nombreSindrome: "Síndrome de Lindsay",
-	ImagenClave: "img/BatatrimBoton.png",
-	ImagenNOClave: "img/noBatatrimBoton.png",
+	ImagenClave: ["img/BatatrimBoton.png","img/PlaceboBoton.png"], 
+	ImagenNOClave: ["img/noBatatrimBoton.png","img/noPlaceboBoton.png"], 
 	ImagenSindrome: "img/NooutcomeNuevo.png",
 	ImagenSano: "img/outcomeNuevo.png",
 	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: "¿Quieres administrarle \"Batatrim\"?",
-	textoYES: "Has administrado \"Batatrim\"",
-	textoNO: "No has administrado \"Batatrim\"",
+	textoPregunta: ["¿Quieres administrarle \"Batatrim\"?","¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?"],
+	textoYES: ["Has administrado \"Batatrim\"","Has administrado \"una Cápsula placebo de sacarosa \""],
+	textoNO: ["No has administrado \"Batatrim\"","No has administrado \"una Cápsula placebo de sacarosa \""],
 	numTrials: 100,
 	posibleOutcomes: [],
-	queSolucion: [], // 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
+	posibleOptions: [], 	// 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
@@ -133,7 +133,7 @@ var grupoHibrido = {
 	TiemposRespuesta: [],
 };
 
-var FaseControl = {
+var FaseControl = {   // Esto debería sobrar, luego revisamos. 
 	nombreClave: "\"Batatrim\"",
 	nombreSindrome: "Síndrome de Lindsay",
 	ImagenClave: "img/BatatrimBoton.png",
@@ -146,10 +146,10 @@ var FaseControl = {
 	textoYES: "Has administrado \"Batatrim\"",
 	textoNO: "No has administrado \"Batatrim\"",
 	numTrials: 50,
-	posibleOutcomes: [],
+	posibleOutcome: [],
 	secuenciaCells: [],
 	secuenciaResps: [],
-	posibleOutcomes: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9], // Esto lo dejamos para que todos los grupos tengan los datos ordenados igual
+	posibleOptions: [], // Esto lo dejamos para que todos los grupos tengan los datos ordenados igual
 	secuenciaCells: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
 	secuenciaResps: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
 	Juicio: 999,
@@ -364,8 +364,8 @@ function generaEnsayos(){
 	grupoPlacebo.posibleOutcomes=arrayOutcome;
 	grupoHibrido.posibleOutcomes=arrayOutcome;
 
-	grupoBatatrim.posibleOptions=new Array(100).fill(0);
-	grupoPlacebo.posibleOptions=new Array(100).fill(1);
+	grupoBatatrim.posibleOptions=new Array(100).fill(0); // 0 --> BATATRIM
+	grupoPlacebo.posibleOptions=new Array(100).fill(1); // 1 --> PLACEBO
 	grupoHibrido.posibleOptions=arrayOptions;
 }
 // Test the function
