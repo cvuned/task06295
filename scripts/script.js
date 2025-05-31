@@ -308,10 +308,10 @@ function asignagrupo() {
 //GENERACION DE ENSAYOS:
 
 function generaEnsayos(){
-	let arrayOutcome = [];
+	var arrayOutcome = [];
 
 	for(var i=0; i<10; i++){ //creo 10 bloques de 10 con 30%/70% de éxito
-		let block= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
+		var block= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
 		block=shuffle(block);
 		arrayOutcomearrayOutcome = arrayOutcome.concat(block);
 	}
@@ -344,6 +344,9 @@ function generaEnsayos(){
 		}
 	}
 
+    console.log("Drug distribution:");
+	console.log(arrayOptions)
+	console.log(arrayOutcome)
 	grupoBatatrim.posibleOutcomes=arrayOutcome;
 	grupoPlacebo.posibleOutcomes=arrayOutcome;
 	grupoHibrido.posibleOutcomes=arrayOutcome;
