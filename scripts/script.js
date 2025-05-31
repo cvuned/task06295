@@ -157,6 +157,8 @@ var FaseControl = {   // Esto debería sobrar, luego revisamos.
 	TiemposRespuesta: [],
 };
 
+misGrupos = [grupoBatatrim, grupoPlacebo, grupoHibrido];
+
 
 //función para inyectar HTML:
 function pintarHTML(targetDiv, htmlContenido){ 
@@ -275,13 +277,12 @@ function asignagrupo() {
 		if (grouplist[i] < grouplist[grupoAsignado]) {
 			grupoAsignado = i;
 		}
+	}
 	if(testeo === 1){
 		console.log("El GRUPO asignado es el: "+groupNames[grupoAsignado]+".");		//debug
 		//console.log("El grupo asignado es el: "+grupoAsignado+".");					// debug
 		console.log("Grupo asignado aleatorio es el:"+grupoAsignado+".") 				// debug
 	}
-	}
-
 	// TODO ESTE BLOQUE SIGUIENTE CHECKEA LAS PROBABILIDADES: 
 	group= "No asignado";	
 	// En función del número de participantes que hayan realizado la tarea en la secuencia normal
@@ -1115,18 +1116,18 @@ function prepararTextos(){
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
 			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ grupoBatatrim.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave+", pero esta medicina aún está en " 
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ grupoBatatrim.nombreClave[0]+", pero esta medicina aún está en " 
 			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
 				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+grupoBatatrim.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
-				+ "de administrarle o no el "+grupoBatatrim.nombreClave+ ".</p>",
+				+ "de administrarle o no el "+grupoBatatrim.nombreClave[0]+ ".</p>",
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+grupoBatatrim.nombreClave+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
-			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave+"\" width"
+			+ ""+grupoBatatrim.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+grupoBatatrim.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+grupoBatatrim.ImagenNOClave[0]+"\" width"
 			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
