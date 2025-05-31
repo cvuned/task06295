@@ -328,9 +328,9 @@ function generaEnsayos(){
         let outcome = arrayOutcome[i]; // either 0 or 1
         let availableDrugs = [];
         // Check which drugs still have slots available for this outcome
-		if (drug0[outcome] > 0) availableDrugs.push(0);
-		if (drug1[outcome] > 0) availableDrugs.push(1);
-				
+		if (drug0[outcome] > 0) availableDrugs.concat(0);
+		if (drug1[outcome] > 0) availableDrugs.concat(1);
+		
 		// Randomly choose one of the available drugs
 		if (availableDrugs.length > 0) {
 			let chosenDrug = availableDrugs[Math.floor(Math.random() * availableDrugs.length)];
@@ -388,7 +388,7 @@ function testFunction() {
     console.log(`Drug1 - with outcome 0: ${drug1_with_outcome0}, with outcome 1: ${drug1_with_outcome1}`);
     console.log(`Target for each drug: 15 zeros, 35 ones`);
     
-    return result;
+    return;
 }
 
 if(testeo === 1){
