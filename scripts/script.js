@@ -308,14 +308,16 @@ function asignagrupo() {
 //GENERACION DE ENSAYOS:
 
 function generaEnsayos(){
+	let arrayOutcome = [];
 
 	for(var i=0; i<10; i++){ //creo 10 bloques de 10 con 30%/70% de éxito
-		var arrayOutcome= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
-		arrayOutcome=shuffle(arrayOutcome);
-		grupoBatatrim.posibleOutcomes=grupoBatatrim.posibleOutcomes.concat(arrayOutcome);
-		grupoPlacebo.posibleOutcomes=grupoPlacebo.posibleOutcomes.concat(arrayOutcome);
-		grupoHibrido.posibleOutcomes=grupoHibrido.posibleOutcomes.concat(arrayOutcome);
+		let block= [1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
+		block=shuffle(block);
+		arrayOutcomearrayOutcome = arrayOutcome.concat(block);
 	}
+	grupoBatatrim.posibleOutcomes=arrayOutcome;
+	grupoPlacebo.posibleOutcomes=arrayOutcome;
+	grupoHibrido.posibleOutcomes=arrayOutcome;
 }
 
 function generaEnsayosMixtos(){
@@ -1210,6 +1212,7 @@ function cuestionarioEdad(){
 	asignagrupo(); 
 	prepararTextos();   
 	generaEnsayos();
+	generaEnsayosMixtos();
 	document.querySelector('input[name="edad"]').value="";
     
 	/////// Aquí vamos a aprovechar para enviar a Firebase los datos de nuestro participante
