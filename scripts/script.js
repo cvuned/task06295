@@ -1008,8 +1008,7 @@ function prepararTextos(){
 		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
 		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
- 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
-			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
+			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
 							
 			// A guardar datos! 
 			//13: Save Data... 
@@ -1017,7 +1016,7 @@ function prepararTextos(){
 			
 			//13:
 			"<h3 class=\"titulo\">Ya has terminado. ¡Muchas gracias por tu colaboración!</h3><p>El experimento que acabas de realizar está directamente relacionado con la materia explicada en el Capítulo 3 del libro “Psicología del Aprendizaje” que utilizas en tu asignatura del mismo nombre, concretamente con el concepto de “Contingencia” explicado en el apartado 2.1 de dicho capítulo. Para más información no dudes en ponerte en contacto con los autores del estudio.<br>"
-				+" <br>Autores:<br>Carlos Vera, Pedro Montoro, Cristina Orgaz y María José Contreras.</p>"
+				+" <br>Autores:<br>Daniel Segura, Carlos Vera, Pedro Montoro y Cristina Orgaz.</p>"
 				+ "<br><br> Pulsa F11 para salir del modo pantalla completa."
 		];
 	}
@@ -1059,11 +1058,10 @@ function prepararTextos(){
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
-		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
-			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
- 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
-			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
+		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el placebo a cada paciente?",
+ 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>"  
+			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del placebo al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
+			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad del placebo? ¿Qué significa ese número para ti?",
 							
 			// A guardar datos! 
 			//13: Save Data... 
@@ -1071,7 +1069,7 @@ function prepararTextos(){
 			
 			//13:
 			"<h3 class=\"titulo\">Ya has terminado. ¡Muchas gracias por tu colaboración!</h3><p>El experimento que acabas de realizar está directamente relacionado con la materia explicada en el Capítulo 3 del libro “Psicología del Aprendizaje” que utilizas en tu asignatura del mismo nombre, concretamente con el concepto de “Contingencia” explicado en el apartado 2.1 de dicho capítulo. Para más información no dudes en ponerte en contacto con los autores del estudio.<br>"
-				+" <br>Autores:<br>Carlos Vera, Pedro Montoro, Cristina Orgaz y María José Contreras.</p>"
+				+" <br>Autores:<br>Daniel Segura, Carlos Vera, Pedro Montoro y Cristina Orgaz.</p>"
 				+ "<br><br> Pulsa F11 para salir del modo pantalla completa."
 		];
 	}
@@ -1095,30 +1093,32 @@ function prepararTextos(){
 			+ " por sí mismo no consta de ningún efecto terapéutico y que, sin embargo, la persona que lo recibe afirma encontrarse mejor debido a esta intervención.</p><br>",
 			
 			//3: Instrucciones 2.a 
-			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
+			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\" y del placebo, te vamos a presentar una serie "
 				+ "de fichas médicas de pacientes que están sufriendo una crisis del "+training.nombreSindrome +". En cada ficha verás un paciente y se te dará la oportunidad "
 				+ "de administrarle o no el "+training.nombreClave[0]+ ".</p>",
 			
 			//4: Instrucciones 2.b 
-			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar el "
-			+ ""+training.nombreClave[0]+ " o no, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar o no el "
+			+ ""+training.nombreClave[0]+ " o el placebo, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
 			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+training.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+training.ImagenNOClave[0]+"\" width"
-			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
+			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>"
+			+ "<br><br>En unos ensayos tendrás la opción de dar "+training.nombreClave[0]+ " y en otros de dar el placebo.",
 			
 			//5: Instrucciones 2.c 
 			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis."
 			+ "</p><table style=\"text-align: center; align-content: center; border: 0px; width: 100%;\">"
 			+ "<tr><td><img src=\""+training.ImagenSindrome+"\" width=\"150px\"></td><td><img src=\""+training.ImagenSano+"\" width=\"150px\"></td></tr><tr><td>"
 			+ "Paciente enfermo</td><td>Paciente curado</td></tr></table><p>Después de darte esa información, se te presentará la ficha del siguiente paciente. <br>"
-			+ "Intenta averiguar hasta qué punto es efectivo el "+training.nombreClave[0]+ ". "
+			+ "Intenta averiguar hasta qué punto punto son efectivos el "+training.nombreClave[0]+ " y el placebo. "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
-		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
+		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento (o el placebo) a cada paciente?",
 		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
- 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
-			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Qué te llevó a tomar la decisión de dar "+siempreOnunca()+" la medicina a los pacientes del experimento?",
+ 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>"  
+			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del placebo al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
+			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Y la del placebo? ¿Qué significa ese número para ti?",
 							
 			// A guardar datos! 
 			//13: Save Data... 
@@ -1126,7 +1126,7 @@ function prepararTextos(){
 			
 			//13:
 			"<h3 class=\"titulo\">Ya has terminado. ¡Muchas gracias por tu colaboración!</h3><p>El experimento que acabas de realizar está directamente relacionado con la materia explicada en el Capítulo 3 del libro “Psicología del Aprendizaje” que utilizas en tu asignatura del mismo nombre, concretamente con el concepto de “Contingencia” explicado en el apartado 2.1 de dicho capítulo. Para más información no dudes en ponerte en contacto con los autores del estudio.<br>"
-				+" <br>Autores:<br>Carlos Vera, Pedro Montoro, Cristina Orgaz y María José Contreras.</p>"
+				+" <br>Autores:<br>Daniel Segura, Carlos Vera, Pedro Montoro y Cristina Orgaz.</p>"
 				+ "<br><br> Pulsa F11 para salir del modo pantalla completa."
 		];
 	}
