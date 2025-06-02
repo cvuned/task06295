@@ -128,6 +128,13 @@ var grupoHibrido = {
 	TiemposRespuesta: [],
 };
 
+if(testeo === 1){
+	grupoHibrido.numTrials = 5;
+	grupoPlacebo.numTrials = 2;
+	grupoBatatrim.numTrials = 2; 
+	console.log("Reduced trials!! This should only be running during tests.")
+}
+
 // Agrupamos las variables que hemos sacado antes en "misGrupos": 
 misGrupos = [grupoBatatrim, grupoPlacebo, grupoHibrido];
 
@@ -266,7 +273,10 @@ function asignagrupo() {
 	group= "No asignado";	
 	// En función del número de participantes que hayan realizado la tarea en la secuencia normal
 	// y de contrabalanceo, asigna a un grupo o a otro al participante. 
+
+	
 	training=misGrupos[grupoAsignado];
+	
 	
 	if(testeo === 1){
 		console.log("Pues te ha tocado grupo :"+groupNames[grupoAsignado]+".");		//debug
@@ -373,18 +383,8 @@ function testFunctionEnsayosGenerados() {
     console.log(`Drug0 - with outcome 0: ${drug0_with_outcome0}, with outcome 1: ${drug0_with_outcome1}`);
     console.log(`Drug1 - with outcome 0: ${drug1_with_outcome0}, with outcome 1: ${drug1_with_outcome1}`);
     console.log(`Target for each drug: 15 zeros, 35 ones`);
-    
     return;
 }
-
-if(testeo === 1){
-	grupoHibrido.numTrials = 2;
-	grupoPlacebo.numTrials = 2;
-	grupoBatatrim.numTrials = 2; 
-	console.log("This should only be running during tests.")
-}
-
-
 
 function RandomString(length){
     var mask = 'BCDFGHJKLMNPQRSTVWXZ';
@@ -1133,7 +1133,7 @@ function prepararTextos(){
 	
 	// Aquí tenemos la llamada al cuestionarioEdad. //// ESTO VA A HACER FALTA REVISAR, PORQUE NO ERCUERDO QUÉ DIFERENCIAS HABÍA AQUÍ EN LOS BOTONES... 
 	// Básicament esta es la función que va haciendo que avance el experimento. 
-	if(grupoAsignado>3){
+	if(grupoAsignado>1){ 			// El grupo HIBRIDO es 2
 
 		//console.log("Preparando botones para grupo de CONTROL");		 // Comentarios para debug
 		arrayBoton = [
@@ -1176,7 +1176,7 @@ function prepararTextos(){
 		    "<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
     		"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
     		"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
-			"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
+			"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",	// Quinta pregunta para el híbrido
 
 
 
@@ -1226,6 +1226,12 @@ function prepararTextos(){
 			
 			//12:
 			//"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='siguienteTexto()' value='Continuar'/>",
+			
+			"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
+		    "<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
+    		"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
+    		"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",
+			//"<input type='button' class='botonFlow' style='font-size:100%' onclick='siguienteTexto()' value='Siguiente'/>",	// Sin 5ª pregunta para no hibrido. 
 
 			// A guardar datos! 
 			//13:
