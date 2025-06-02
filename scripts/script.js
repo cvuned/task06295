@@ -1088,8 +1088,11 @@ function prepararTextos(){
 			//2: Instrucciones 1 
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
 			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ training.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
-			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+ training.nombreClave[0]+", pero esta medicina aún está en " 
-			+ "fase experimental, por lo que todavía no se ha comprobado claramente su efectividad.</p><br>",
+			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+training.nombreClave[0]+ ", pero esta medicina aún está en fase experimental." 
+			+ "Además, es posible que las crisis que provoca esta enfermedad podrían verse mitigadas por medio del consumo de una cápsula placebo de sacarosa (azúcar), pero aún no hay datos suficientes de la efectividad de dicha cápsula. "
+			+ "La sacarosa es ampliamente usada como placebo debido a que en condiciones generales no produce ningún tipo de efecto terapéutico.<br>"
+			+ "Tenga en cuenta que en el campo de la medicina el efecto placebo consiste en  administrar una sustancia inerte (en la presente investigación una cápsula de sacarosa) que"
+			+ " por sí mismo no consta de ningún efecto terapéutico y que, sin embargo, la persona que lo recibe afirma encontrarse mejor debido a esta intervención.</p><br>",
 			
 			//3: Instrucciones 2.a 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>Como parte de los ensayos clínicos para evaluar la efectividad del \"Batatrim\", te vamos a presentar una serie "
