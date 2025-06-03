@@ -422,88 +422,38 @@ function showCue(){
 
 function mostrarEleccion(){
 		
-	if(training[fase] == grupoBatatrim){ 
-
 		// Tenemos que customiza los paneles según el grupo y el tipo de ensayo. TFK REVISAR
 		// Para grupo Batatrim: ImagenClave[0]
 		// Para grupo Placebo: ImagenClave[0]
 		// Para grupo Hibrido: ImagenClave[posibleOption][0]
 
-		if(BalPanel==1){
+	if(BalPanel==1){
+			if (grupoAsignado == 2) { 
+				pintarHTML('divEleccion',
+				"<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
+				);
+			}
+			else {
+				pintarHTML('divEleccion',
+				"<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[0]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[0]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
+				);
+			}
+	}
+		else if(BalPanel==2){
 				if (grupoAsignado == 2) { 
 					pintarHTML('divEleccion',
-					"<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
-					);
+				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
+				   );
 				}
 				else {
 					pintarHTML('divEleccion',
-					"<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[0]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
-					);
-				}
-		}
-		else if(BalPanel==2){
-				if (grupoAsignado == 2) { 
-					pintarHTML('divEleccion',
-				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
-				   );
-				}
-				else {
-					pintarHTML('divEleccion',
-				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[0]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
+				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[0]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[0]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
 				   );
 				}
 
 		}
 
-		mostrar(divEleccion);
-    }
-	else if(training[fase] == grupoPlacebo){
-
-		if(BalPanel==1){
-				pintarHTML('divEleccion',
-				   "<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
-				   );
-		}
-		else if(BalPanel==2){
-				pintarHTML('divEleccion',
-				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
-				   );
-
-		}
-
-		mostrar(divEleccion);
-	}
-
-	if(training[fase] == grupoBatatrim){ 
-
-		if(BalPanel==1){
-				pintarHTML('divEleccion',
-				   "<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
-				   );
-		}
-		else if(BalPanel==2){
-				pintarHTML('divEleccion',
-				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
-				   );
-
-		}
-
-		mostrar(divEleccion);
-	}
-	
-    if(BalPanel==1){
-            pintarHTML('divEleccion',
-               "<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
-               );
-    }
-    else if(BalPanel==2){
-            pintarHTML('divEleccion',
-               "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
-               );
-
-    }
-
-    mostrar(divEleccion);
+	mostrar(divEleccion);
 }
 
 function respuestaYES(){
@@ -1118,10 +1068,11 @@ function prepararTextos(){
 			
 			//4: Instrucciones 2.b 
 			"<h3 class=\"titulo\">Instrucciones</h3><p>El procedimiento será el siguiente: para cada nuevo paciente, debes decidir si quieres administrar o no el "
-			+ ""+training.nombreClave[0]+ " o el placebo, pulsando la imagen correspondiente de las dos siguientes.</p><br><br><table style=\"text-align: center; align-content:"
+			+ ""+training.nombreClave[0]+ " o el placebo, pulsando la imagen correspondiente de las dos siguientes."
+			+ " <br>Nota: En unos ensayos tendrás la opción de dar "+training.nombreClave[0]+ " y en otros de dar el placebo."
+			+ "</p><br><br><table style=\"text-align: center; align-content:"
 			+ "center; border: 0px; width: 100%;\"><tr><td><img src=\""+training.ImagenClave[0]+"\" width=\"150px\"></td><td><img src=\""+training.ImagenNOClave[0]+"\" width"
-			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>"
-			+ "<br><br>En unos ensayos tendrás la opción de dar "+training.nombreClave[0]+ " y en otros de dar el placebo.",
+			+ "=\"150px\"></td></tr><tr><td>Administrar la medicina</td><td>No administrar la medicina</td></tr></table><br><br>",
 			
 			//5: Instrucciones 2.c 
 			"<p><h3 class=\"titulo\">Instrucciones</h3>A continuación te informaremos de si el paciente superó la crisis."
