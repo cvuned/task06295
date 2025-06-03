@@ -89,8 +89,7 @@ var grupoPlacebo = {
 	ImagenNOClave: ["img/noPlaceboBoton.png","img/noPlaceboBoton.png"], 
 	ImagenSindrome: "img/Nooutcome.png",
 	ImagenSano: "img/outcome.png",
-	textoTransitAlta: "alta",
-	textoTransitBaja: "baja",
+	textoCue: "Este paciente tiene el Síndrome de Lindsay",
 	textoPregunta: ["¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?","¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?"],
 	textoYES: ["Has administrado \"una Cápsula placebo de sacarosa \"","Has administrado \"una Cápsula placebo de sacarosa \""],
 	textoNO: ["No has administrado \"una Cápsula placebo de sacarosa \"","No has administrado \"una Cápsula placebo de sacarosa \""],
@@ -405,10 +404,10 @@ function showCue(){
     mostrar(divContingencia);
     
 	t0 = performance.now(); // Medir tiempos
-	//console.log("El tiempo actual es: "+t0+"."); // debug
-
-	pintarHTML("divPreStatus", "<img src=\""+training[fase].ImagenSindrome+"\" width=250px>"+
-            "<br><br><br><p class=\"mensaje\">"+training[fase].textoCue+"</p><p class=\"mensaje\">"+training[fase].textoPregunta+"</p>");
+	//console.log("El tiempo actual es: "+t0+"."); // debug 
+	console.log("Aquí estams pintando -- training[fase].ImagenSindrome --");
+	pintarHTML("divPreStatus", "<img src=\""+training.ImagenSindrome+"\" width=250px>"+
+            "<br><br><br><p class=\"mensaje\">"+training.textoCue+"</p><p class=\"mensaje\">"+training.textoPregunta[training.posibleOptions[training.secuenciaResps.length]]+"</p>");  // TFK Hay que revisar cómo estamos viendo en qué trial vamos
     
 	pintarHTML("divRegistro", "<h3>Paciente "+RandomString(4)+"</h3>");
 	
@@ -425,15 +424,34 @@ function mostrarEleccion(){
 		
 	if(training[fase] == grupoBatatrim){ 
 
+		// Tenemos que customiza los paneles según el grupo y el tipo de ensayo. TFK REVISAR
+		// Para grupo Batatrim: ImagenClave[0]
+		// Para grupo Placebo: ImagenClave[0]
+		// Para grupo Hibrido: ImagenClave[posibleOption][0]
+
 		if(BalPanel==1){
-				pintarHTML('divEleccion',
-				   "<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
-				   );
+				if (grupoAsignado == 2) { 
+					pintarHTML('divEleccion',
+					"<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
+					);
+				}
+				else {
+					pintarHTML('divEleccion',
+					"<div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training.ImagenClave[0]+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div id=\"mensajeCue\"></div>"
+					);
+				}
 		}
 		else if(BalPanel==2){
-				pintarHTML('divEleccion',
-				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training[fase].ImagenNOClave+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
+				if (grupoAsignado == 2) { 
+					pintarHTML('divEleccion',
+				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[training.posibleOptions[training.secuenciaResps.length]]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
 				   );
+				}
+				else {
+					pintarHTML('divEleccion',
+				   "<div ><button id=\"botonNO\" value=\"NO\" class=\"botonEleccion\" onclick='respuestaNO()'><img src=\""+training.ImagenNOClave[0]+"\" width=150px  class=\"icon icon_hover\" id=\"imagenNO\"></button></div><div ><button id=\"botonYES\" value=\"YES\" class=\"botonEleccion\" onclick='respuestaYES()'><img src=\""+training[fase].ImagenClave+"\" width=150px class=\"icon icon_hover\" id=\"imagenYES\"></button></div><div id=\"mensajeCue\"></div>"
+				   );
+				}
 
 		}
 
@@ -909,8 +927,9 @@ function siguienteTexto(){
 	
     htmlContenido=arrayInstruc[stateTexto];
     // Check if the current state is one of the custom questions
-	
-    if (stateTexto >= arrayInstruc.length - 7) {
+	console.log(`Current State is${stateTexto}`); //
+
+    if (stateTexto >= arrayInstruc.length - 6) {
 		var answerElementId = `questionText${stateTexto - 1}`; // Get the previous question's answer
     	var answerElement = document.getElementById(answerElementId);
 
@@ -1034,7 +1053,7 @@ function prepararTextos(){
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
 			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ training.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
 			+ "Las crisis que provoca esta enfermedad podrían mitigarse por medio del consumo de una cápsula placebo de sacarosa (azúcar), pero aún no hay datos suficientes " 
-			+ "de la efectividad de dicha cápsula.  La sacarosa es ampliamente usada como placebo debido a que en condiciones generales no produce ningún tipo de efecto terapéutico.<br>"
+			+ "de la efectividad de dicha cápsula. <br> La sacarosa es ampliamente usada como placebo debido a que en condiciones generales no produce ningún tipo de efecto terapéutico.<br>"
 			+ "Tenga en cuenta que en el campo de la medicina el efecto placebo consiste en  administrar una sustancia inerte (en la presente investigación una cápsula de sacarosa) que"
 			+ " por sí mismo no consta de ningún efecto terapéutico y que, sin embargo, la persona que lo recibe afirma encontrarse mejor debido a esta intervención.</p><br>",
 			
