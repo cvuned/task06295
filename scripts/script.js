@@ -427,6 +427,7 @@ function mostrarEleccion(){
 		// Para grupo Placebo: ImagenClave[0]
 		// Para grupo Hibrido: ImagenClave[posibleOption][0]
 
+	// training.posibleOptions[training.secuenciaResps.length] ---> Así podemos saber por qué número de ensayo vamos.
 	if(BalPanel==1){
 			if (grupoAsignado == 2) { 
 				pintarHTML('divEleccion',
@@ -461,11 +462,11 @@ function respuestaYES(){
 	//console.log("El tiempo actual es: "+t1+"."); // debug
 	tiempotranscurrido = t1 - t0; //
 	//console.log("El tiempo de respuesta es: "+tiempotranscurrido+"."); // debug
-	training[fase].TiemposRespuesta.push(tiempotranscurrido); 
+	training.TiemposRespuesta.push(tiempotranscurrido); 
 	
 	
 	document.getElementById("botonNO").classList.add('unselected');
-    training[fase].secuenciaResps.push(1);
+    training.secuenciaResps.push(1);
     document.getElementById("imagenYES").classList.remove('icon_hover');
     document.getElementById("imagenYES").classList.remove('icon');
     document.getElementById("imagenNO").classList.remove('icon');
@@ -477,7 +478,7 @@ function respuestaYES(){
     document.getElementById("divPreStatus").classList.add('FadeOut');
     mostrar(divPreStatus);
     
-	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training[fase].textoYES+"</p>");
+	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoYES+"</p>");
     
     setTimeout('showOutcome()', 100);
 }
@@ -487,10 +488,10 @@ function respuestaNO(){
 	//console.log("El tiempo actual es: "+t1+"."); // debug
 	tiempotranscurrido = t1 - t0; //Medir tiempos
 	//console.log("El tiempo de respuesta es: "+tiempotranscurrido+".");// debug
-	training[fase].TiemposRespuesta.push(tiempotranscurrido); 
+	training.TiemposRespuesta.push(tiempotranscurrido); 
 	
     document.getElementById("botonYES").classList.add('unselected');
-    training[fase].secuenciaResps.push(0);
+    training.secuenciaResps.push(0);
     document.getElementById("imagenNO").classList.remove('icon_hover');
     document.getElementById("imagenYES").classList.remove('icon');
     document.getElementById("imagenNO").classList.remove('icon');
@@ -502,7 +503,7 @@ function respuestaNO(){
     document.getElementById("divPreStatus").classList.add('FadeOut');
     mostrar(divPreStatus);
     
-	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training[fase].textoNO+"</p>");
+	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoNO+"</p>");
     
     setTimeout('showOutcome()', 100);
 }
@@ -513,37 +514,37 @@ function showOutcome(){
     var imgOutcome = "";
     var textoOutcome = "";
     
-    switch(training[fase].secuenciaResps[state]){
+    switch(training.secuenciaResps[state]){
         case 1: //si ha respondido 1 --> Administrar Batatrim:
-            if(training[fase].posibleOutcomes[state]==1) {
-                imgOutcome = training[fase].ImagenSano;
+            if(training.posibleOutcomes[state]==1) {
+                imgOutcome = training.ImagenSano;
 				textoOutcome = "<br><p class=\"mensaje\">¡El paciente ha superado la crisis!</p>";
-				training[fase].secuenciaCells.push("a");
+				training.secuenciaCells.push("a");
                 //console.log(" debug: cell a");
             }
                 
             else {
 			//else if(training[fase].posibleOutcomes[state]==0){
-                imgOutcome = training[fase].ImagenSindrome;
+                imgOutcome = training.ImagenSindrome;
 				textoOutcome = "<br><p class=\"mensajeMALO\">¡El paciente NO ha superado la crisis!</p>";
-                training[fase].secuenciaCells.push("b");
+                training.secuenciaCells.push("b");
                 //console.log(" debug: cell b");
             }
      
             break;
         case 0: //si ha respondido 0 --> no administrar Batatrim:
-            if(training[fase].posibleOutcomes[state]==1) {
-                imgOutcome = training[fase].ImagenSano;
+            if(training.posibleOutcomes[state]==1) {
+                imgOutcome = training.ImagenSano;
 				textoOutcome = "<br><p class=\"mensaje\">¡El paciente ha superado la crisis!</p>"; //en estos bloques hemos eliminado el if del Case 1
-				training[fase].secuenciaCells.push("c");   
+				training.secuenciaCells.push("c");   
                 //console.log(" debug: cell c"); 				// debug
             }
             
 			else {
             //else if(training[fase].posibleOutcomes[state]==0){
-                imgOutcome = training[fase].ImagenSindrome;
+                imgOutcome = training.ImagenSindrome;
 				textoOutcome = "<br><p class=\"mensajeMALO\">¡El paciente NO ha superado la crisis!</p>";
-                training[fase].secuenciaCells.push("d"); 
+                training.secuenciaCells.push("d"); 
                 //console.log(" debug: cell d"); 				// debug
             }            
             
@@ -551,7 +552,7 @@ function showOutcome(){
         
 
     pintarHTML('divOutcome', "<img src=\""+imgOutcome+"\" width=250px><br><br>"+textoOutcome);
-    if(training[fase] == grupoPlacebo){ 
+    if(training[fase] == grupoPlacebo){    // TFK --> Hay que arreglar esto, ya que ahora no tiene sentido, simplificar a 1 
 		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")	
 	}
 	else if(training[fase] == grupoBatatrim){
