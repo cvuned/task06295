@@ -405,7 +405,7 @@ function showCue(){
     
 	t0 = performance.now(); // Medir tiempos
 	//console.log("El tiempo actual es: "+t0+"."); // debug 
-	console.log("Aquí estams pintando -- training[fase].ImagenSindrome --");
+	console.log("Aquí estams pintando -- training.ImagenSindrome --");
 	pintarHTML("divPreStatus", "<img src=\""+training.ImagenSindrome+"\" width=250px>"+
             "<br><br><br><p class=\"mensaje\">"+training.textoCue+"</p><p class=\"mensaje\">"+training.textoPregunta[training.posibleOptions[training.secuenciaResps.length]]+"</p>");  // TFK Hay que revisar cómo estamos viendo en qué trial vamos
     
@@ -524,7 +524,7 @@ function showOutcome(){
             }
                 
             else {
-			//else if(training[fase].posibleOutcomes[state]==0){
+			//else if(training.posibleOutcomes[state]==0){
                 imgOutcome = training.ImagenSindrome;
 				textoOutcome = "<br><p class=\"mensajeMALO\">¡El paciente NO ha superado la crisis!</p>";
                 training.secuenciaCells.push("b");
@@ -541,7 +541,7 @@ function showOutcome(){
             }
             
 			else {
-            //else if(training[fase].posibleOutcomes[state]==0){
+            //else if(training.posibleOutcomes[state]==0){
                 imgOutcome = training.ImagenSindrome;
 				textoOutcome = "<br><p class=\"mensajeMALO\">¡El paciente NO ha superado la crisis!</p>";
                 training.secuenciaCells.push("d"); 
@@ -611,7 +611,7 @@ function showJuicio(){
     ocultar(divTextos);
 	
 	textoJuicio= "<p class=\"pregunta\">¿Hasta qué punto crees que el "+
-			training[fase].nombreClave[0]+" es efectivo para curar las crisis del "+training[fase].nombreSindrome+"?</p>";
+			training.nombreClave[0]+" es efectivo para curar las crisis del "+training.nombreSindrome+"?</p>";
 	
 
 	textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: Nada efectivo.</li><li>100: Completamente efectivo.</li></ul><p>Puedes hacer clic dentro de la escala tantas veces como desees hasta marcar el valor que consideres más adecuado. Cualquier valor entre 0 y 100 es válido. También puedes usar las flechas del teclado (izquierda / derecha) para ajustar el valor de la respuesta con más precisión. </p><br><br>";
@@ -642,7 +642,7 @@ function showNPS(){
 	ocultar(divContingencia);
     ocultar(divTextos);
  
-	textoNPS= "<p class=\"pregunta\">¿Recomendarías a un familiar o amigo tomar "+training[fase].nombreClave[0]+"?</p>";
+	textoNPS= "<p class=\"pregunta\">¿Recomendarías a un familiar o amigo tomar "+training.nombreClave[0]+"?</p>";
 	textoInstruccionesNPS="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: En absoluto.</li><li>10: Completamente seguro.</li></ul></p><br><br>";
 	textoNPS = textoNPS.concat(textoInstruccionesNPS);
 	pintarHTML('divPreguntaNPS', textoNPS);
@@ -667,7 +667,7 @@ function showConfianza(){
     ocultar(divContingencia);
     ocultar(divTextos);
 
-	textoConfianza= "<p class=\"pregunta\">En una escala del 0 al 10, ¿cómo de probable es que recomendaras a un paciente tomar "+training[fase].nombreClave[0]+"?</p>";
+	textoConfianza= "<p class=\"pregunta\">En una escala del 0 al 10, ¿cómo de probable es que recomendaras a un paciente tomar "+training.nombreClave[0]+"?</p>";
 	textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: No lo recomendaría en absoluto.</li><li>10: Lo recomendaría con total seguridad.</li></ul></p><br><br>";
 	textoConfianza = textoConfianza.concat(textoInstrucciones);
 	pintarHTML('divPregunta', textoConfianza);
@@ -726,11 +726,11 @@ function validaJuicio(){
     if (document.getElementById('textInput').value!=""){
 		
 		// Vamos a grabar el valor del slider en un punto u otro según nuestra fase
-		if(training[fase].Juicio==999){
-			//training[fase].Juicio=document.getElementById('textInput').value;
+		if(training.Juicio==999){
+			//training.Juicio=document.getElementById('textInput').value;
 			grupoBatatrim.Juicio=document.getElementById('textInput').value; 			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
 			//console.log("--- LA HORA DEL JUICIO ESTÁ CERCA!!! ---");			// debug
-			//console.log(training[fase].Juicio);								// debug
+			//console.log(training.Juicio);								// debug
 			
 			// Una vez que ya se ha lanzado el juicio, cambiamos la escala para el NPS
 			// Get the elements by their class name
@@ -742,8 +742,8 @@ function validaJuicio(){
 			separador3.innerHTML = "10<br>|";
 
 		}	
-		else if(training[fase].Confianza==999){
-			//training[fase].Confianza=document.getElementById('textInput').value;
+		else if(training.Confianza==999){
+			//training.Confianza=document.getElementById('textInput').value;
 			grupoBatatrim.Confianza=document.getElementById('textInput').value;			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
 			// console.log("--- LA HORA DE LA MEDIR NPS ESTÁ CERCA!!! ---");		// debug 
 			// console.log(document.getElementById('textInput').value);		// debug 
@@ -752,7 +752,7 @@ function validaJuicio(){
 			// console.log("--- HEMOS MEDIDO NPS! ---");		// debug 
 			// console.log(grupoBatatrim.NPS)
 			//console.log("--- LA HORA DE LA CONFIANZA ESTÁ CERCA!!! ---");		// debug
-			//console.log(training[fase].Confianza);							// debug
+			//console.log(training.Confianza);							// debug
 		}	
 		
 		document.getElementById("sliderJuicio").classList.remove('sliderCONTPrimero');
