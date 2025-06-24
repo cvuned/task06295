@@ -90,9 +90,9 @@ var grupoPlacebo = {
 	ImagenSindrome: "img/Nooutcome.png",
 	ImagenSano: "img/outcome.png",
 	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: ["¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?","¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?"],
-	textoYES: ["Has administrado \"una Cápsula placebo de sacarosa \"","Has administrado \"una Cápsula placebo de sacarosa \""],
-	textoNO: ["No has administrado \"una Cápsula placebo de sacarosa \"","No has administrado \"una Cápsula placebo de sacarosa \""],
+	textoPregunta: ["¿Quieres administrarle una Cápsula placebo de sacarosa?","¿Quieres administrarle una Cápsula placebo de sacarosa?"],
+	textoYES: ["Has administrado una Cápsula placebo de sacarosa","Has administrado una Cápsula placebo de sacarosa"],
+	textoNO: ["No has administrado una Cápsula placebo de sacarosa","No has administrado una Cápsula placebo de sacarosa"],
 	numTrials: 100,
 	posibleOutcomes: [],
 	posibleOptions: [], 	// 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
@@ -113,9 +113,9 @@ var grupoHibrido = {
 	ImagenSindrome: "img/NooutcomeNuevo.png",
 	ImagenSano: "img/outcomeNuevo.png",
 	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: ["¿Quieres administrarle \"Batatrim\"?","¿Quieres administrarle \"una Cápsula placebo de sacarosa\"?"],
-	textoYES: ["Has administrado \"Batatrim\"","Has administrado \"una Cápsula placebo de sacarosa \""],
-	textoNO: ["No has administrado \"Batatrim\"","No has administrado \"una Cápsula placebo de sacarosa \""],
+	textoPregunta: ["¿Quieres administrarle \"Batatrim\"?","¿Quieres administrarle na Cápsula placebo de sacarosa?"],
+	textoYES: ["Has administrado \"Batatrim\"","Has administrado una Cápsula placebo de sacarosa"],
+	textoNO: ["No has administrado \"Batatrim\"","No has administrado una Cápsula placebo de sacarosa"],
 	numTrials: 100,
 	posibleOutcomes: [],
 	posibleOptions: [], 	// 0 para BATATRIM y 1 para CAPSULA DE GLUCOSA
@@ -478,7 +478,7 @@ function respuestaYES(){
     document.getElementById("divPreStatus").classList.add('FadeOut');
     mostrar(divPreStatus);
     
-	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoYES+"</p>");
+	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoYES[training.posibleOptions[training.secuenciaResps.length]]+"</p>");
     
     setTimeout('showOutcome()', 100);
 }
@@ -503,7 +503,7 @@ function respuestaNO(){
     document.getElementById("divPreStatus").classList.add('FadeOut');
     mostrar(divPreStatus);
     
-	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoNO+"</p>");
+	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoNO[training.posibleOptions[training.secuenciaResps.length]]+"</p>");
     
     setTimeout('showOutcome()', 100);
 }
