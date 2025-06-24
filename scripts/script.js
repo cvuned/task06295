@@ -24,7 +24,7 @@ var testeo = 1;  // variable para reducir el número de ensayos durante el teste
 
 // Indicadores de estado para ver qué pregunta se lanza  
 var juiciorealizado = 0;
-var confianzaevaluada = 0;
+var confianzaevaluada = 0; // Este lo vamos a usar para el placebo
 
 var alertcount = 0; 
 //variables demográficas:
@@ -600,8 +600,17 @@ function ITI(){
     }
     else if(state==training.numTrials-1){
 
-		showJuicio();
-		juiciorealizado++;
+		// Aquí nos vamos a saltar el Juicio si estamos en el grupo PLACEBO. Este grupo es el: 1
+		if(grupoAsignado == 1){ 	// Estamos en grupo PLACEBO
+			juiciorealizado++;
+			if(testeo == 1){
+				console.log("Nos saltamos el juicio, es grupo PLACEBO");
+			}
+		}
+		else{
+			showJuicio();
+			juiciorealizado++;
+		}
 	}
 	    
 }
@@ -635,41 +644,20 @@ function showJuicio(){
 
 }
 
-function showNPS(){
-	// Esta nueva función va a dar a evaluar el NPS de 1 a 10.
-	
-	// para ello reutilizamos la confianza pero voy a ver si al mostrar el resultado puedo mostrar redondeado a 10 
-	ocultar(divContingencia);
-    ocultar(divTextos);
- 
-	textoNPS= "<p class=\"pregunta\">¿Recomendarías a un familiar o amigo tomar "+training.nombreClave[0]+"?</p>";
-	textoInstruccionesNPS="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: En absoluto.</li><li>10: Completamente seguro.</li></ul></p><br><br>";
-	textoNPS = textoNPS.concat(textoInstruccionesNPS);
-	pintarHTML('divPreguntaNPS', textoNPS);
-    
-    document.getElementById("sliderNPS").classList.add('sliderCONTPrimero');
-
-    ReseteoJuicios();
-    
-    document.getElementById("textInput").disabled = true;
-    document.getElementById("textInput").value = "";
-
-    
-    textoBoton="<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='validaJuicio()' value='Confirmar'/>";
-    pintarHTML('divBoton', textoBoton);
-    
-
-    setTimeout('mostrar(divBoton)', 100);    
-}
-
-
 function showConfianza(){
     ocultar(divContingencia);
     ocultar(divTextos);
+	//  Aquí lo vamos a usar para evaluar el PLACEBO. 
+	//textoConfianza= "<p class=\"pregunta\">En una escala del 0 al 10, ¿cómo de probable es que recomendaras a un paciente tomar "+training.nombreClave[0]+"?</p>";
+	//textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: No lo recomendaría en absoluto.</li><li>10: Lo recomendaría con total seguridad.</li></ul></p><br><br>";
+	//textoConfianza = textoConfianza.concat(textoInstrucciones);
+	textoConfianza= "<p class=\"pregunta\">¿Hasta qué punto crees que la "+
+			training.nombreClave[1]+" es efectivo para curar las crisis del "+training.nombreSindrome[1]+"?</p>";
+	
 
-	textoConfianza= "<p class=\"pregunta\">En una escala del 0 al 10, ¿cómo de probable es que recomendaras a un paciente tomar "+training.nombreClave[0]+"?</p>";
-	textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: No lo recomendaría en absoluto.</li><li>10: Lo recomendaría con total seguridad.</li></ul></p><br><br>";
+	textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: Nada efectivo.</li><li>100: Completamente efectivo.</li></ul><p>Puedes hacer clic dentro de la escala tantas veces como desees hasta marcar el valor que consideres más adecuado. Cualquier valor entre 0 y 100 es válido. También puedes usar las flechas del teclado (izquierda / derecha) para ajustar el valor de la respuesta con más precisión. </p><br><br>";
 	textoConfianza = textoConfianza.concat(textoInstrucciones);
+	
 	pintarHTML('divPregunta', textoConfianza);
     
     document.getElementById("sliderJuicio").classList.add('sliderCONTPrimero');
