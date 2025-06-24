@@ -746,6 +746,7 @@ function validaJuicio(){
 			}
 			training.JuicioPlacebo=document.getElementById('textInput').value;			// Valor para grupo Placebo o Hibrido, que es el real
 			placeboEvaluado++;
+			prepararTextos(); // Actualizamos textos con los valores 
 		}	
 		
 		document.getElementById("sliderJuicio").classList.remove('sliderCONTPrimero');
@@ -756,6 +757,7 @@ function validaJuicio(){
 		else if(placeboEvaluado==1){
 			// prepararTextos(); // Esto ya no aplica, era para preparar los segundos textos
 			//cambiafase(); // COMENTAMOS PORQUE SOLO HAY 1 FASE
+			prepararTextos(); // Actualizamos textos con los valores 
 			siguienteTexto(); // Si esto se activa es que ya tenemos los juicios completos y hay que proseguir. 
 		}
         
@@ -796,7 +798,7 @@ function ReseteoJuicios(){
 
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
-//FUNCIONES DE CONTROL DE TEXTOS:
+//FUNCIONES DE CONTROL DE TEXTOS:		// NO EN USO
 //++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++
 
@@ -858,7 +860,7 @@ function siguienteTexto(){
     // Check if the current state is one of the custom questions
 	console.log(`Current State is${stateTexto}`); //
 
-    if (stateTexto >= arrayInstruc.length - 6) {
+    if (stateTexto >= arrayInstruc.length - 6) {		// ESto es lo que hace que saltems de un lado a otro, me parece recordar
 		var answerElementId = `questionText${stateTexto - 1}`; // Get the previous question's answer
     	var answerElement = document.getElementById(answerElementId);
 
@@ -883,22 +885,14 @@ function siguienteTexto(){
 	    	htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="width: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
 		}
 	}
-    if (stateTexto == arrayInstruc.length - 3) {
+    //if (stateTexto == arrayInstruc.length - 3) {
 		
-		if (shouldShowFifthQuestion()) {
-        // Show the 5th question
-			htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="width: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
-		}
-		else { // En este caso no hay que mostrar la pregunta 5 porque no se cumple la condición
-			//console.log("No se va a mostrar la pregunta 5"); // Debug
-			stateTexto++;
-		}
-		htmlContenido=arrayInstruc[stateTexto];
-		if (stateTexto == arrayInstruc.length - 3) {
-			htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="width: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
-		}
+	//	htmlContenido=arrayInstruc[stateTexto];
+	//	if (stateTexto == arrayInstruc.length - 3) {
+	//		htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="width: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
+	//	}
 	
-    }
+    //}
 	
 	
 	htmlBotones=arrayBoton[stateTexto];
@@ -956,11 +950,11 @@ function prepararTextos(){
 			+ "Intenta averiguar hasta qué punto es efectivo el "+training.nombreClave[0]+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
-			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
-		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
+			"<p><h3 class=\"titulo\">Pregunta 1/4 </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
+		    "<p><h3 class=\"titulo\">Pregunta 2/4 </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento a cada paciente?",
+		    "<p><h3 class=\"titulo\">Pregunta 3/4 </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
-			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
+			"<p><h3 class=\"titulo\">Pregunta 4/4 </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Qué significa ese número para ti?",
 							
 			// A guardar datos! 
 			//13: Save Data... 
@@ -1013,11 +1007,11 @@ function prepararTextos(){
 			+ "Intenta averiguar hasta qué punto es efectivo el "+training.nombreClave[0]+ ". "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
-			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
-		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el placebo a cada paciente?",
- 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>"  
+			"<p><h3 class=\"titulo\">Pregunta 1/4 </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
+		    "<p><h3 class=\"titulo\">Pregunta 2/4 </h3><p> ¿Cómo tomaste la decisión de dar o no el placebo a cada paciente?",
+ 	   		"<p><h3 class=\"titulo\">Pregunta 3/4 </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.JuicioPlacebo+".</p>"  
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del placebo al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
-			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad del placebo? ¿Qué significa ese número para ti?",
+			"<p><h3 class=\"titulo\">Pregunta 4/4 </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad del placebo? ¿Qué significa ese número para ti?",
 							
 			// A guardar datos! 
 			//13: Save Data... 
@@ -1073,13 +1067,13 @@ function prepararTextos(){
 			+ "Intenta averiguar hasta qué punto punto son efectivos el "+training.nombreClave[0]+ " y el placebo. "
 			+ "Cuando hayas tratado a un buen número de pacientes te haremos algunas preguntas.</p>",
 
-			"<p><h3 class=\"titulo\">Pregunta 1 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
-		    "<p><h3 class=\"titulo\">Pregunta 2 / "+numberOfQuestions()+" </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento (o el placebo) a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
+			"<p><h3 class=\"titulo\">Pregunta 1 / 5 </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
+		    "<p><h3 class=\"titulo\">Pregunta 2 / 5 </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento (o el placebo) a cada paciente?",
+		    "<p><h3 class=\"titulo\">Pregunta 3 / 5 </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
- 	   		"<p><h3 class=\"titulo\">Pregunta 4 / "+numberOfQuestions()+" </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>"  
+ 	   		"<p><h3 class=\"titulo\">Pregunta 4 / 5 </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.JuicioPlacebo+".</p>"  
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del placebo al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
-			"<p><h3 class=\"titulo\">Pregunta 5 / "+numberOfQuestions()+" </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Y la del placebo? ¿Qué significa ese número para ti?",
+			"<p><h3 class=\"titulo\">Pregunta 5 / 5 </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad de la medicina? ¿Y la del placebo? ¿Qué significa ese número para ti?",
 							
 			// A guardar datos! 
 			//13: Save Data... 
@@ -1350,7 +1344,7 @@ function saveData(){
 		Age + "," +         		
 		Gender + "," +		
 		training.Juicio + "," + 				//Juicio 
-		training.Confianza + "," + 				//Confianza
+		training.JuicioPlacebo + "," + 			//Juicio de contingencia del placebo
 		training.secuenciaResps + "," + 		//Secuencia de respuestas dada
 		training.posibleOutcomes + "," + 		//Secuencia de resultados de éxito presentada
 		training.secuenciaCells + "," + 		//Secuencia de combinaciones acción-éxito
@@ -1372,7 +1366,7 @@ function saveData(){
 
     //console.log(data);      // Debug
     guardaFirebase(data,'datoscontrol/');
-    siguienteTexto();
+    // siguienteTexto(); ---> Corregido, aquí después de guardar ya acabamos.
 }
 
 function guardaFirebase(myData, target ){
