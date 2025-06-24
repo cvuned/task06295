@@ -405,7 +405,7 @@ function showCue(){
     
 	t0 = performance.now(); // Medir tiempos
 	//console.log("El tiempo actual es: "+t0+"."); // debug 
-	console.log("Aquí estams pintando -- training.ImagenSindrome --");
+	//console.log("Aquí estams pintando -- training.ImagenSindrome --");
 	pintarHTML("divPreStatus", "<img src=\""+training.ImagenSindrome+"\" width=250px>"+
             "<br><br><br><p class=\"mensaje\">"+training.textoCue+"</p><p class=\"mensaje\">"+training.textoPregunta[training.posibleOptions[training.secuenciaResps.length]]+"</p>");  // TFK Hay que revisar cómo estamos viendo en qué trial vamos
     
@@ -676,12 +676,11 @@ function showConfianza(){
 }
 
 
-// Esta es la función que actualiza el valor según lo que se marca en a escala
+// Esta es la función que actualiza el valor según lo que se marca en la escala, dividíamos entre 10 para el NPS
 function updateTextInput(val) {
-	if(confianzaevaluada ==1 ){
-
-	document.getElementById('textInput').value=Math.floor(val/10);
-	
+	//if(confianzaevaluada ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
+	if(confianzaevaluada ==100 ){
+		document.getElementById('textInput').value=Math.floor(val/10);
 	}
 	else {
 		document.getElementById('textInput').value=val;
@@ -689,10 +688,9 @@ function updateTextInput(val) {
 }
 
 function updateLimit() {
-	if(confianzaevaluada ==1 ){
-
+	//if(confianzaevaluada ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
+	if(confianzaevaluada ==100 ){
 		return 10;
-	
 	}
 	else {
 		return 100;
@@ -700,10 +698,9 @@ function updateLimit() {
 }
 
 function updateLimitMax() {
-	if(confianzaevaluada ==1 ){
-
-	document.getElementById('textInput').value=Math.floor(val/10);
-	
+	//if(confianzaevaluada ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
+	if(confianzaevaluada ==100 ){
+		document.getElementById('textInput').value=Math.floor(val/10);
 	}
 	else {
 		document.getElementById('textInput').value=val;
