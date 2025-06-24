@@ -614,7 +614,7 @@ function ITI(){
 			if(testeo == 1){
 				console.log("Nos saltamos el juicio, es grupo PLACEBO");
 			}
-			validaJuicio();
+			showJuicioPlacebo();
 		}
 		else{
 			showJuicio();
@@ -761,7 +761,7 @@ function validaJuicio(){
         
 	}
 	else {
-        alert("Contesta la pregunta");
+        alert("Contesta la pregunta");		// Estamos saltando aquí porque venimos directamente sin tener respuesta. 
         document.getElementById("sliderJuicio").classList.add('sliderCONTPrimero');
         document.getElementById("textInput").value = "";
          }   
