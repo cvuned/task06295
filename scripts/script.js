@@ -24,7 +24,7 @@ var testeo = 1;  // variable para reducir el número de ensayos durante el teste
 
 // Indicadores de estado para ver qué pregunta se lanza  
 var juiciorealizado = 0;
-var confianzaevaluada = 0; // Este lo vamos a usar para el placebo
+var placeboEvaluado = 0; // Este lo vamos a usar para el placebo
 
 var alertcount = 0; 
 //variables demográficas:
@@ -77,6 +77,7 @@ var grupoBatatrim = {
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
+	JuicioPlacebo: 999,
 	Confianza: 999,
 	NPS: 999,
 	TiemposRespuesta: [],
@@ -99,6 +100,7 @@ var grupoPlacebo = {
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
+	JuicioPlacebo: 999,
 	Confianza: 999,
 	NPS: 999,
 	TiemposRespuesta: [],
@@ -122,6 +124,7 @@ var grupoHibrido = {
 	secuenciaCells: [],
 	secuenciaResps: [],
 	Juicio: 999,
+	JuicioPlacebo: 999,
 	Confianza: 999,
 	NPS: 999,
 	TiemposRespuesta: [],
@@ -602,10 +605,12 @@ function ITI(){
 
 		// Aquí nos vamos a saltar el Juicio si estamos en el grupo PLACEBO. Este grupo es el: 1
 		if(grupoAsignado == 1){ 	// Estamos en grupo PLACEBO
-			juiciorealizado++;
+			
 			if(testeo == 1){
 				console.log("Nos saltamos el juicio, es grupo PLACEBO");
 			}
+			juiciorealizado++;
+			validaJuicio();
 		}
 		else{
 			showJuicio();
@@ -644,7 +649,7 @@ function showJuicio(){
 
 }
 
-function showConfianza(){
+function showJuicioPlacebo(){
     ocultar(divContingencia);
     ocultar(divTextos);
 	//  Aquí lo vamos a usar para evaluar el PLACEBO. 
@@ -678,8 +683,8 @@ function showConfianza(){
 
 // Esta es la función que actualiza el valor según lo que se marca en la escala, dividíamos entre 10 para el NPS
 function updateTextInput(val) {
-	//if(confianzaevaluada ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
-	if(confianzaevaluada ==100 ){
+	//if(placeboEvaluado ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
+	if(placeboEvaluado ==100 ){
 		document.getElementById('textInput').value=Math.floor(val/10);
 	}
 	else {
@@ -688,8 +693,8 @@ function updateTextInput(val) {
 }
 
 function updateLimit() {
-	//if(confianzaevaluada ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
-	if(confianzaevaluada ==100 ){
+	//if(placeboEvaluado ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
+	if(placeboEvaluado ==100 ){
 		return 10;
 	}
 	else {
@@ -698,8 +703,8 @@ function updateLimit() {
 }
 
 function updateLimitMax() {
-	//if(confianzaevaluada ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
-	if(confianzaevaluada ==100 ){
+	//if(placeboEvaluado ==1 ){  // Con este valor = 1, cuando se actualiza divide ls valores entre 10. 
+	if(placeboEvaluado ==100 ){
 		document.getElementById('textInput').value=Math.floor(val/10);
 	}
 	else {
@@ -713,40 +718,40 @@ function validaJuicio(){
 		// Vamos a grabar el valor del slider en un punto u otro según nuestra fase
 		if(training.Juicio==999){
 			//training.Juicio=document.getElementById('textInput').value;
-			grupoBatatrim.Juicio=document.getElementById('textInput').value; 			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
-			//console.log("--- LA HORA DEL JUICIO ESTÁ CERCA!!! ---");			// debug
-			//console.log(training.Juicio);								// debug
-			
-			// Una vez que ya se ha lanzado el juicio, cambiamos la escala para el NPS
+			if(grupoAsignado == 1){ 	// Estamos en grupo PLACEBO, por lo que no hay Juicio de Batatrim
+				training.Juicio==777; // Valor para grupo Placebo
+			}
+			else{
+				training.Juicio=document.getElementById('textInput').value;			
+			} 
+
+			// Una vez que ya se ha lanzado el juicio, cambiamos la escala para el NPS --> YA NO LO CAMBIAMOS (experimento anterior con NPS)
 			// Get the elements by their class name
-			var separador2 = document.getElementsByClassName("separador2")[0];
-			var separador3 = document.getElementsByClassName("separador3")[0];
+			//var separador2 = document.getElementsByClassName("separador2")[0];
+			//var separador3 = document.getElementsByClassName("separador3")[0];
 
 			// Change their content
-			separador2.innerHTML = "5<br>|";
-			separador3.innerHTML = "10<br>|";
+			//separador2.innerHTML = "5<br>|";
+			//separador3.innerHTML = "10<br>|";
 
 		}	
 		else if(training.Confianza==999){
-			//training.Confianza=document.getElementById('textInput').value;
-			grupoBatatrim.Confianza=document.getElementById('textInput').value;			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
-			// console.log("--- LA HORA DE LA MEDIR NPS ESTÁ CERCA!!! ---");		// debug 
-			// console.log(document.getElementById('textInput').value);		// debug 
-			// console.log(grupoBatatrim.NPS)
-			grupoBatatrim.NPS=document.getElementById('textInput').value;			// Añadido porque en el exp CVTD22XX2 solo guardamos en fase test
-			// console.log("--- HEMOS MEDIDO NPS! ---");		// debug 
-			// console.log(grupoBatatrim.NPS)
-			//console.log("--- LA HORA DE LA CONFIANZA ESTÁ CERCA!!! ---");		// debug
-			//console.log(training.Confianza);							// debug
+			
+			if(grupoAsignado > 0){ 	// Estamos en grupo PLACEBO
+				training.JuicioPlacebo=document.getElementById('textInput').value;			// Valor para grupo Placebo o Hibrido, que es el real
+			}
+			else{
+				training.JuicioPlacebo= 555;   // Valor para grupo BATATRIM, que es el grupoAsignado 0 
+			}
 		}	
 		
 		document.getElementById("sliderJuicio").classList.remove('sliderCONTPrimero');
 		
-		if(confianzaevaluada==0){
-			showConfianza();
-			confianzaevaluada++;
+		if(placeboEvaluado==0){
+			showJuicioPlacebo();
+			placeboEvaluado++;
 		}
-		else if(confianzaevaluada==1){
+		else if(placeboEvaluado==1){
 			prepararTextos();
 			//cambiafase(); // COMENTAMOS PORQUE SOLO HAY 1 FASE
 		}
@@ -773,7 +778,7 @@ function cambiafase(){
         
 		juiciorealizado=0;
 		npsEvaluada=0;
-		confianzaevaluada=0;
+		placeboEvaluado=0;
 
 		siguienteTexto();
      }
