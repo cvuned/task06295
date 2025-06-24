@@ -657,7 +657,7 @@ function showJuicioPlacebo(){
 	//textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: No lo recomendaría en absoluto.</li><li>10: Lo recomendaría con total seguridad.</li></ul></p><br><br>";
 	//textoConfianza = textoConfianza.concat(textoInstrucciones);
 	textoConfianza= "<p class=\"pregunta\">¿Hasta qué punto crees que la "+
-			training.nombreClave[1]+" es efectivo para curar las crisis del "+training.nombreSindrome[1]+"?</p>";
+			training.nombreClave[1]+" es efectivo para curar las crisis del "+training.nombreSindrome+"?</p>";
 	
 
 	textoInstrucciones="<p>Responde usando la siguiente escala, donde los números se interpretan así:</p><ul><li>0: Nada efectivo.</li><li>100: Completamente efectivo.</li></ul><p>Puedes hacer clic dentro de la escala tantas veces como desees hasta marcar el valor que consideres más adecuado. Cualquier valor entre 0 y 100 es válido. También puedes usar las flechas del teclado (izquierda / derecha) para ajustar el valor de la respuesta con más precisión. </p><br><br>";
