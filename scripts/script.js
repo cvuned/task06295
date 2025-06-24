@@ -943,6 +943,10 @@ function prepararTextos(){
 	if(grupoAsignado == 0){ // Instrucciones para grupo de solo Batatrim: 
 		if (testeo == 1){ 
 			console.log("Preparando textos para grupo de solo Batatrim");			//debug
+			grupoHibrido.numTrials = 5;
+			grupoPlacebo.numTrials = 2;
+			grupoBatatrim.numTrials = 2; 
+			console.log("Reduced trials!! This should only be running during tests.");
 		}
 		arrayInstruc=[
 			//0: (portada) 
@@ -994,6 +998,10 @@ function prepararTextos(){
 
 		if (testeo == 1){ 
 			console.log("Preparando textos para grupo de solo Placebo");			//debug
+			grupoHibrido.numTrials = 5;
+			grupoPlacebo.numTrials = 2;
+			grupoBatatrim.numTrials = 2; 
+			console.log("Reduced trials!! This should only be running during tests.");
 		}
 		arrayInstruc=[
 			//0: (portada) 
@@ -1047,6 +1055,10 @@ function prepararTextos(){
 
 		if (testeo == 1){ 
 			console.log("Preparando textos para grupo Híbrido");			//debug HIBRIDO
+			grupoHibrido.numTrials = 5;
+			grupoPlacebo.numTrials = 2;
+			grupoBatatrim.numTrials = 2; 
+			console.log("Reduced trials!! This should only be running during tests.");
 		}		
 		arrayInstruc=[
 			//0: (portada) 
@@ -1129,7 +1141,7 @@ function prepararTextos(){
 				+"   <input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='showCue()' value='Comenzar'/>",
 			
 			//6a:
-			//"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='siguienteTexto()' value='Continuar'/>",
+			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='siguienteTexto()' value='Continuar'/>",
 
 			//6b:
 			//"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='previoTexto()' value='Atrás'/>"
@@ -1187,13 +1199,13 @@ function prepararTextos(){
 			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='siguienteTexto()' value='Continuar'/>",
 
 			//6b:
-			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='previoTexto()' value='Atrás'/>"
-				+ "   <input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='siguienteTexto()' value='Continuar'/>",
+			//"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='previoTexto()' value='Atrás'/>"
+			//	+ "   <input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='siguienteTexto()' value='Continuar'/>",
 
 			
 			//7:
-			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='previoTexto()' value='Atrás'/>"
-				+ "   <input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='showCue()' value='Comenzar'/>",
+			//"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='previoTexto()' value='Atrás'/>"
+			//	+ "   <input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='showCue()' value='Comenzar'/>",
 			
 			//12:
 			//"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='siguienteTexto()' value='Continuar'/>",
