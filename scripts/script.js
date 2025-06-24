@@ -281,7 +281,7 @@ function asignagrupo() {
 	if(grupoAsignado == 0){	// Grupo Batatrim no evalúa Placebo: 
 		placeboEvaluado = 1; 
 	}
-	else{	// Grupo Placebo no evalúa Batatrim
+	else if(grupoAsignado == 1){	// Grupo Placebo no evalúa Batatrim
 		batatrimEvaluado = 1; 
 	}
 	
@@ -768,7 +768,7 @@ function validaJuicio(){
 }
 
 
-function cambiafase(){
+function cambiafase(){		// NO SE USA
 	//startData = "A participant with ID has completed the first phase " + personId +","+ stringDate();
 	//guardaFirebase(startData, 'mySurvivalLogs');
 	
