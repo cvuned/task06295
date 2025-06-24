@@ -23,7 +23,7 @@ var testeo = 1;  // variable para reducir el número de ensayos durante el teste
 //var testeo = 0;  
 
 // Indicadores de estado para ver qué pregunta se lanza  
-var juiciorealizado = 0;
+var batatrimEvaluado = 0;	// Este lo usamos para evaluar el batatrim
 var placeboEvaluado = 0; // Este lo vamos a usar para el placebo
 
 var alertcount = 0; 
@@ -277,8 +277,13 @@ function asignagrupo() {
 	// y de contrabalanceo, asigna a un grupo o a otro al participante. 
 
 	
-	training=misGrupos[grupoAsignado];
-	
+	training=misGrupos[grupoAsignado];		
+	if(grupoAsignado == 0){	// Grupo Batatrim no evalúa Placebo: 
+		placeboEvaluado = 1; 
+	}
+	else if{	// Grupo Placebo no evalúa Batatrim
+		batatrimEvaluado = 1; 
+	}
 	
 	if(testeo === 1){
 		console.log("Pues te ha tocado grupo :"+groupNames[grupoAsignado]+".");		//debug
@@ -609,12 +614,10 @@ function ITI(){
 			if(testeo == 1){
 				console.log("Nos saltamos el juicio, es grupo PLACEBO");
 			}
-			juiciorealizado++;
 			validaJuicio();
 		}
 		else{
 			showJuicio();
-			juiciorealizado++;
 		}
 	}
 	    
@@ -716,14 +719,15 @@ function validaJuicio(){
     if (document.getElementById('textInput').value!=""){
 		
 		// Vamos a grabar el valor del slider en un punto u otro según nuestra fase
-		if(training.Juicio==999){
+		if(batatrimEvaluado == 0){ 	// Solo se activa para agrupo BATATRIM / HIBRIDO
 			//training.Juicio=document.getElementById('textInput').value;
-			if(grupoAsignado == 1){ 	// Estamos en grupo PLACEBO, por lo que no hay Juicio de Batatrim
-				training.Juicio==777; // Valor para grupo Placebo
+
+			if(grupoAsignado == 0){ 	// Estamos en grupo BATATRIM -- guardamos un valor de control. 
+				training.JuicioPlacebo= 555;   // Valor para grupo BATATRIM, que es el grupoAsignado 0 				
 			}
-			else{
-				training.Juicio=document.getElementById('textInput').value;			
-			} 
+			
+			training.Juicio=document.getElementById('textInput').value;			
+			batatrimEvaluado++;
 
 			// Una vez que ya se ha lanzado el juicio, cambiamos la escala para el NPS --> YA NO LO CAMBIAMOS (experimento anterior con NPS)
 			// Get the elements by their class name
@@ -735,25 +739,24 @@ function validaJuicio(){
 			//separador3.innerHTML = "10<br>|";
 
 		}	
-		else if(training.Confianza==999){
+		else if(placeboEvaluado == 0){	// Solo se activa para grupo PLACEBO / HIBRIDO
 			
-			if(grupoAsignado > 0){ 	// Estamos en grupo PLACEBO
-				training.JuicioPlacebo=document.getElementById('textInput').value;			// Valor para grupo Placebo o Hibrido, que es el real
+			if(grupoAsignado == 1){ 	// Estamos en grupo PLACEBO, por lo que no hay Juicio de Batatrim
+				training.Juicio==777; // Valor para grupo Placebo -- guardamos un valor de control. 
 			}
-			else{
-				training.JuicioPlacebo= 555;   // Valor para grupo BATATRIM, que es el grupoAsignado 0 
-			}
+			training.JuicioPlacebo=document.getElementById('textInput').value;			// Valor para grupo Placebo o Hibrido, que es el real
+			placeboEvaluado++;
 		}	
 		
 		document.getElementById("sliderJuicio").classList.remove('sliderCONTPrimero');
 		
 		if(placeboEvaluado==0){
 			showJuicioPlacebo();
-			placeboEvaluado++;
 		}
 		else if(placeboEvaluado==1){
-			prepararTextos();
+			// prepararTextos(); // Esto ya no aplica, era para preparar los segundos textos
 			//cambiafase(); // COMENTAMOS PORQUE SOLO HAY 1 FASE
+			siguienteTexto(); // Si esto se activa es que ya tenemos los juicios completos y hay que proseguir. 
 		}
         
 	}
@@ -776,7 +779,7 @@ function cambiafase(){
         fase++;
         state=0; 
         
-		juiciorealizado=0;
+		batatrimEvaluado=0;
 		npsEvaluada=0;
 		placeboEvaluado=0;
 
