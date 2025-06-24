@@ -281,7 +281,7 @@ function asignagrupo() {
 	if(grupoAsignado == 0){	// Grupo Batatrim no evalúa Placebo: 
 		placeboEvaluado = 1; 
 	}
-	else if{	// Grupo Placebo no evalúa Batatrim
+	else{	// Grupo Placebo no evalúa Batatrim
 		batatrimEvaluado = 1; 
 	}
 	
