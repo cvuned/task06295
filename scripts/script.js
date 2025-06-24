@@ -466,7 +466,7 @@ function respuestaYES(){
 	
 	
 	document.getElementById("botonNO").classList.add('unselected');
-    training.secuenciaResps.push(1);
+    training.secuenciaResps.push(1); //Aquí guardamos la respuesta al ensayo, con lo que que al mostrar el texto, hay que reducir 1
     document.getElementById("imagenYES").classList.remove('icon_hover');
     document.getElementById("imagenYES").classList.remove('icon');
     document.getElementById("imagenNO").classList.remove('icon');
@@ -477,8 +477,8 @@ function respuestaYES(){
 
     document.getElementById("divPreStatus").classList.add('FadeOut');
     mostrar(divPreStatus);
-    
-	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoYES[training.posibleOptions[training.secuenciaResps.length]]+"</p>");
+    // En la siguiente línea restamos 1 porque ya hemos añadido la respuesta al ensayo en la secuenciaResps:
+	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoYES[training.posibleOptions[training.secuenciaResps.length-1]]+"</p>");
     
     setTimeout('showOutcome()', 100);
 }
@@ -491,7 +491,7 @@ function respuestaNO(){
 	training.TiemposRespuesta.push(tiempotranscurrido); 
 	
     document.getElementById("botonYES").classList.add('unselected');
-    training.secuenciaResps.push(0);
+    training.secuenciaResps.push(0); //Aquí guardamos la respuesta al ensayo, con lo que que al mostrar el texto, hay que reducir 1 
     document.getElementById("imagenNO").classList.remove('icon_hover');
     document.getElementById("imagenYES").classList.remove('icon');
     document.getElementById("imagenNO").classList.remove('icon');
@@ -502,8 +502,8 @@ function respuestaNO(){
     
     document.getElementById("divPreStatus").classList.add('FadeOut');
     mostrar(divPreStatus);
-    
-	pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoNO[training.posibleOptions[training.secuenciaResps.length]]+"</p>");
+    // En la siguiente línea restamos 1 porque ya hemos añadido la respuesta al ensayo en la secuenciaResps:
+    pintarHTML("mensajeCue", "<p class=\"mensaje\">"+training.textoNO[training.posibleOptions[training.secuenciaResps.length-1]]+"</p>");
     
     setTimeout('showOutcome()', 100);
 }
@@ -1054,7 +1054,7 @@ function prepararTextos(){
 			"<h3 class=\"titulo\">Instrucciones</h3><p align=\"left\">Imagina que eres un médico que trabaja en el laboratorio de investigación de una universidad. "
 			+ "Eres especialista en una enfermedad muy rara y peligrosa llamada "+ training.nombreSindrome+", que hay que tratar muy rápido en urgencias. "
 			+ "Las crisis que provoca esta enfermedad podrían curarse inmediatamente con una medicina llamada "+training.nombreClave[0]+ ", pero esta medicina aún está en fase experimental." 
-			+ "Además, es posible que las crisis que provoca esta enfermedad podrían verse mitigadas por medio del consumo de una cápsula placebo de sacarosa (azúcar), pero aún no hay datos suficientes de la efectividad de dicha cápsula. "
+			+ "Además, es posible que las crisis que provoca esta enfermedad podrían verse mitigadas por medio del consumo de una cápsula placebo de sacarosa (azúcar), pero aún no hay datos suficientes de la efectividad de dicha cápsula.<br>"
 			+ "La sacarosa es ampliamente usada como placebo debido a que en condiciones generales no produce ningún tipo de efecto terapéutico.<br>"
 			+ "Tenga en cuenta que en el campo de la medicina el efecto placebo consiste en  administrar una sustancia inerte (en la presente investigación una cápsula de sacarosa) que"
 			+ " por sí mismo no consta de ningún efecto terapéutico y que, sin embargo, la persona que lo recibe afirma encontrarse mejor debido a esta intervención.</p><br>",
