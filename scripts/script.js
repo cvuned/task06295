@@ -552,16 +552,8 @@ function showOutcome(){
         
 
     pintarHTML('divOutcome', "<img src=\""+imgOutcome+"\" width=250px><br><br>"+textoOutcome);
-    if(training[fase] == grupoPlacebo){    // TFK --> Hay que arreglar esto, ya que ahora no tiene sentido, simplificar a 1 
-		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")	
-	}
-	else if(training[fase] == grupoBatatrim){
-		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")	
-
-	}
-	else if(training[fase] == grupoHibrido){
-		pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>")		
-	}
+    pintarHTML('divBoton', "<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='ITI()' value='Siguiente paciente'/>");	
+	
     mostrar(divOutcome);
     setTimeout('mostrar(divBoton)', 100);
     
@@ -590,8 +582,9 @@ function ITI(){
     
     document.getElementById("divPreStatus").classList.remove('FadeOut');
     
-    if(state<training[fase].numTrials-1){
-        state++;
+    if(state<training.numTrials-1){	// Esta es la función FIN de los ensayos, que hace de trigger del final.
+        console.log("Aquí vamos a ir haciendo capturas del estado. State: "+state);
+		state++;
         setTimeout("showCue()", 100);
 		
 		// Aquí vamos a ir haciendo capturas
@@ -605,20 +598,12 @@ function ITI(){
 			}
 		}
     }
-     else if(state==training[fase].numTrials-1){
+    else if(state==training.numTrials-1){
 
-		// Esta siguiente línea se activa si estamos en la fase de creación de expectativas 
-		if(training[fase] == grupoPlacebo){
-			//console.log("Estamos en la fase de manipulación");		 // Comentarios para debug
-			// cambiafase();  // COMENTAMOS PORQUE SOLO HAY 1 FASE
-		}
-		else{
-			//console.log("Esta es la fase de test de verdad");			 // Comentarios para debug
-			showJuicio();
-			juiciorealizado++;	
-		}
-	
-     }
+		showJuicio();
+		juiciorealizado++;
+	}
+	    
 }
 
 function showJuicio(){
