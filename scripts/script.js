@@ -113,7 +113,7 @@ var grupoHibrido = {
 	ImagenSindrome: "img/NooutcomeNuevo.png",
 	ImagenSano: "img/outcomeNuevo.png",
 	textoCue: "Este paciente tiene el Síndrome de Lindsay",
-	textoPregunta: ["¿Quieres administrarle \"Batatrim\"?","¿Quieres administrarle na Cápsula placebo de sacarosa?"],
+	textoPregunta: ["¿Quieres administrarle \"Batatrim\"?","¿Quieres administrarle una Cápsula placebo de sacarosa?"],
 	textoYES: ["Has administrado \"Batatrim\"","Has administrado una Cápsula placebo de sacarosa"],
 	textoNO: ["No has administrado \"Batatrim\"","No has administrado una Cápsula placebo de sacarosa"],
 	numTrials: 100,
