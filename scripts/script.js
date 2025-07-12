@@ -946,14 +946,17 @@ function siguienteTexto(){
 	//	}
 	
     //}
-	
-	
+		
+	if (training.respuestasCualitativas.length == 5) {	
+		saveData(); // Guardamos los datos al final de las preguntas cualitativas
+	}
 	htmlBotones=arrayBoton[stateTexto];
 	
 	pintarHTML("divTextos",htmlContenido);
     pintarHTML("divBoton",htmlBotones);
 	//console.log("Estado de texto actual = " + stateTexto)		//debug
-    stateTexto++;	
+    stateTexto++;
+
 }
 
 function previoTexto(){
@@ -1190,7 +1193,7 @@ function prepararTextos(){
 
 			// A guardar datos! 
 			//13:
-			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='saveData()' value='Enviar'/>",
+			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='terminar()' value='Terminar'/>",
 			
 			//14:
 			""
@@ -1243,7 +1246,7 @@ function prepararTextos(){
 
 			// A guardar datos! 
 			//13:
-			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='saveData()' value='Enviar'/>",
+			"<input type='button' class = \"botonFlow\" style=\"font-size:100%\" onclick='terminar()' value='Terminar'/>",
 			
 			//14:
 			""
@@ -1375,19 +1378,17 @@ function hideUnnecessaryElements() {
     });
 }
 
+function terminar() {
+	ocultar(divBoton); 	// Ocultamos el botón de enviar para que no se pueda enviar varias veces.
+}
+
 function saveData(){
 	//console.log("We are now saving data!") // debug
     //showQuestion()
 	var participantId = personId;
 
     stringDate();
-    
-	// ESTO NO SE USA: 
-    //var Fase1countCells = new Map([...new Set(grupoBatatrim.secuenciaCells)].map(
-    //x => [x, grupoBatatrim.secuenciaCells.filter(y => y === x).length]));
-    //var Fase2countCells = new Map([...new Set(grupoPlacebo.secuenciaCells)].map(
-    //x => [x, grupoPlacebo.secuenciaCells.filter(y => y === x).length]));
-    //var BalanceoContingencia = grupoBatatrim.Contingencia+"-"+grupoPlacebo.Contingencia;
+
   
 	data = 
 		"ExpCVTD22XX2" + "," + 
@@ -1405,6 +1406,7 @@ function saveData(){
 		training.posibleOutcomes + "," + 	//Fase 2 - Secuencia de resultados de éxito presentada
 		training.secuenciaCells + "," +  	//Fase 2 - Secuencia de combinaciones acción-éxito
 		training.TiemposRespuesta + "," + 		//Tiempos de respuesta 
+		training.respuestasCualitativas + "," + 	//Respuestas cualitativas
 		fecha
 
 
