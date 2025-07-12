@@ -81,6 +81,7 @@ var grupoBatatrim = {
 	Confianza: 999,
 	NPS: 999,
 	TiemposRespuesta: [],
+	respuestasCualitativas: []
 };
 // Esta variable la usaremos para el grupo de SOLO PLACEBO
 var grupoPlacebo = {
@@ -104,6 +105,7 @@ var grupoPlacebo = {
 	Confianza: 999,
 	NPS: 999,
 	TiemposRespuesta: [],
+	respuestasCualitativas: []
 };
 // Esta variable la usaremos para el grupo A de CONDICIÓN MIXTA PLACEBO & BATATRIM
 var grupoHibrido = {
@@ -128,6 +130,7 @@ var grupoHibrido = {
 	Confianza: 999,
 	NPS: 999,
 	TiemposRespuesta: [],
+	respuestasCualitativas: []
 };
 
 if(testeo === 1){
@@ -889,7 +892,18 @@ function siguienteTexto(){
 
 				// Save to Firebase
 				var dataToSave = `${participantId}; ${processedAnswer}`;
-			
+				
+				if (grupoAsignado === 0 && training.respuestasCualitativas.length === 2) {
+					training.respuestasCualitativas.push("not applicable");
+				    training.respuestasCualitativas.push(processedAnswer);
+				} else if (grupoAsignado === 1 && training.respuestasCualitativas.length === 3) {
+					training.respuestasCualitativas.push("not applicable");
+					training.respuestasCualitativas.push(processedAnswer);
+				} else {
+					training.respuestasCualitativas.push(processedAnswer);
+				}
+				
+				//training.respuestasCualitativas.push(processedAnswer); // <-- Asegúrate de que esta línea esté presente
 				if (testeo == 0){
 					guardaFirebase(dataToSave, 'myAnswers');
 				}
@@ -1033,7 +1047,7 @@ function prepararTextos(){
 
 			"<p><h3 class=\"titulo\">Pregunta 1/4 </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
 		    "<p><h3 class=\"titulo\">Pregunta 2/4 </h3><p> ¿Cómo tomaste la decisión de dar o no el placebo a cada paciente?",
- 	   		"<p><h3 class=\"titulo\">Pregunta 3/4 </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.JuicioPlacebo+".</p>"  
+ 	   		"<p><h3 class=\"titulo\">Pregunta 3/4 </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.JuicioPlacebo+".</p>"  // Nos hemos saltado la pregunta 3. 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del placebo al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
 			"<p><h3 class=\"titulo\">Pregunta 4/4 </h3><p> ¿Podrías explicar con tus palabras cuál es la efectividad del placebo? ¿Qué significa ese número para ti?",
 							
@@ -1093,7 +1107,7 @@ function prepararTextos(){
 
 			"<p><h3 class=\"titulo\">Pregunta 1 / 5 </h3><p> ¿Podrías explicar con tus palabras cuál era el objetivo que tenías que cumplir en la tarea de este estudio? ¿Qué entendiste que debías hacer?",
 		    "<p><h3 class=\"titulo\">Pregunta 2 / 5 </h3><p> ¿Cómo tomaste la decisión de dar o no el medicamento (o el placebo) a cada paciente?",
-		    "<p><h3 class=\"titulo\">Pregunta 3 / 5 </h3><p> En la pregunta final sobre la efectividad de la medicina, en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
+		    "<p><h3 class=\"titulo\">Pregunta 3 / 5 </h3><p> En la pregunta final sobre la efectividad de la medicina (Batatrim), en la escala de 0 a 100, indicaste "+training.Juicio+".</p>" 
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del medicamento al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
  	   		"<p><h3 class=\"titulo\">Pregunta 4 / 5 </h3><p> En la pregunta final sobre la efectividad del placebo, en la escala de 0 a 100, indicaste "+training.JuicioPlacebo+".</p>"  
 			+ "¿Cómo llegaste a esta conclusión sobre la efectividad del placebo al final del experimento? ¿Hubo algún aspecto en particular que influyera en tu decisión?",
