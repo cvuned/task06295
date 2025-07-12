@@ -893,17 +893,32 @@ function siguienteTexto(){
 				// Save to Firebase
 				var dataToSave = `${participantId}; ${processedAnswer}`;
 				
-				if (grupoAsignado === 0 && training.respuestasCualitativas.length === 2) {
+				if (grupoAsignado == 0 && training.respuestasCualitativas.length == 3) {			// BATATRIM es grupoAsignado 0: la pregunta del placebo es la 3, nos la saltamos. 
 					training.respuestasCualitativas.push("not applicable");
-				    training.respuestasCualitativas.push(processedAnswer);
-				} else if (grupoAsignado === 1 && training.respuestasCualitativas.length === 3) {
-					training.respuestasCualitativas.push("not applicable");
+					if (testeo == 0) {
+						guardaFirebase(`${participantId}; not applicable`, 'myAnswers');
+					}
 					training.respuestasCualitativas.push(processedAnswer);
+					if (testeo == 1){ 
+						console.log("Estoy guardando la respuesta en BATATRIM y toca añadir el no aplicable - " + processedAnswer);
+					}
+				} else if (grupoAsignado == 1 && training.respuestasCualitativas.length == 2) {	// PLACEBO es grupoAsignado 1: la pregunta del batatrim es la 2, nos la saltamos.
+					training.respuestasCualitativas.push("not applicable");
+					if (testeo == 0) {
+						guardaFirebase(`${participantId}; not applicable`, 'myAnswers');
+					}
+					training.respuestasCualitativas.push(processedAnswer);
+					if (testeo == 1){ 
+						console.log("Estoy guardando la respuesta en PLACEBO y toca añadir el no aplicable - " + processedAnswer);
+					}
 				} else {
 					training.respuestasCualitativas.push(processedAnswer);
+					if (testeo == 1){ 
+						console.log("Estoy guardando la respuesta - " + processedAnswer);
+					}
 				}
 				
-				//training.respuestasCualitativas.push(processedAnswer); // <-- Asegúrate de que esta línea esté presente
+				//training.respuestasCualitativas.push(processedAnswer); // <-- Asegúrate de que esta línea esté presente: está en el else de antes.
 				if (testeo == 0){
 					guardaFirebase(dataToSave, 'myAnswers');
 				}
