@@ -846,50 +846,74 @@ function processText(text) {
 
     return text;
 }
+function assignValue(grupoAsignado) {
+  const value = grupoAsignado > 1 ? 7 : 6;
+  return value;
+}
 
+function assignValue(grupoAsignado) {
+  const value = grupoAsignado > 1 ? 7 : 6;
+  return value;
+}
 
 function siguienteTexto(){
-	
-	mostrar(divTextos);
-	mostrar(divBoton);
-    ocultar(divContingencia);
-    ocultar(divJuicio);
-    ocultar(divCuestionariosEdad);
-	
-    htmlContenido=arrayInstruc[stateTexto];
-    // Check if the current state is one of the custom questions
-	console.log(`Current State is${stateTexto}`); //
+		
+		mostrar(divTextos);
+		mostrar(divBoton);
+		ocultar(divContingencia);
+		ocultar(divJuicio);
+		ocultar(divCuestionariosEdad);
+		
+		htmlContenido=arrayInstruc[stateTexto];
+		// Check if the current state is one of the custom questions
+		console.log(`Current State is ${stateTexto}`); //
 
-    if (stateTexto >= arrayInstruc.length - 6) {		// ESto es lo que hace que saltems de un lado a otro, me parece recordar
-		var answerElementId = `questionText${stateTexto - 1}`; // Get the previous question's answer
-    	var answerElement = document.getElementById(answerElementId);
-
-        // If this isn't the first time this function is called (answerElement will be null on the first call)
-        if (answerElement) {
-			//console.log("Estoy guardando la respuesta"); // debug
-            var participantId = personId;
-            var answer = answerElement.value;
-            var processedAnswer = processText(answer); // process the text (you need to define this function)
-
-            // Save to Firebase
-            var dataToSave = `${participantId}; ${processedAnswer}`;
-        
-			if (testeo == 0){
-				guardaFirebase(dataToSave, 'myAnswers');
+		// El grupo HIBRIDO tiene 1 pregunta más. 
+		
+		if (testeo == 1){ 
+			console.log("AssignValue is "+assignValue(grupoAsignado))
+		}
+		// Esta constante vale 6 si grupoAsignado no es > 1 (es decir, GRUPO HIBRIDO), y si el grupoAsignado es 0 / 1, vale 6.
+		if (stateTexto >= arrayInstruc.length - assignValue(grupoAsignado)) {		// ESto es lo que hace que saltems de un lado a otro, me parece recordar
+			var answerElementId = `questionText${stateTexto - 1}`; // Get the previous question's answer
+			var answerElement = document.getElementById(answerElementId);
+			if (testeo == 1){ 
+				console.log(answerElement)
 			}
-			else{
-				console.log("Estoy guardando la respuesta en testeo - " + dataToSave);
-			}        
+			// If this isn't the first time this function is called (answerElement will be null on the first call)
+			if (answerElement) {
+				//console.log("Estoy guardando la respuesta"); // debug
+				var participantId = personId;
+				var answer = answerElement.value;
+				var processedAnswer = processText(answer); // process the text (you need to define this function)
+
+				// Save to Firebase
+				var dataToSave = `${participantId}; ${processedAnswer}`;
+			
+				if (testeo == 0){
+					guardaFirebase(dataToSave, 'myAnswers');
+				}
+				else{
+					console.log("Estoy guardando la respuesta en testeo - " + dataToSave);
+				}        
+			}
+			// 
+			if (testeo == 1){ 
+				console.log(`stateTexto=${stateTexto}, length=${arrayInstruc.length}, assignValue=${assignValue(grupoAsignado)}`);
+				console.log(`Condition check: stateTexto >= ${arrayInstruc.length - assignValue(grupoAsignado)} && stateTexto < ${arrayInstruc.length - 3}`);
+			}
+			if (stateTexto >= arrayInstruc.length - assignValue(grupoAsignado) && stateTexto < arrayInstruc.length - 2) {
+				if (testeo == 1){ 
+					console.log(`IF SUCCESSFULLY ENTERED`);
+				}
+				htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="width: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
+			}
 		}
-		if (stateTexto >= arrayInstruc.length - 7 && stateTexto < arrayInstruc.length - 3) {
-	    	htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="width: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
-		}
-	}
     //if (stateTexto == arrayInstruc.length - 3) {
 		
 	//	htmlContenido=arrayInstruc[stateTexto];
 	//	if (stateTexto == arrayInstruc.length - 3) {
-	//		htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="width: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
+	//		htmlContenido += `<br><textarea id="questionText${stateTexto}" rows="10" cols="50" style="widthfunction sigu: 100%;" oninput="saveAnswer(${stateTexto})"></textarea>`;
 	//	}
 	
     //}
@@ -1023,7 +1047,7 @@ function prepararTextos(){
 				+ "<br><br> Pulsa F11 para salir del modo pantalla completa."
 		];
 	}
-	else{			
+	else{				// Instrucciones para grupo HIBRIDO:  
 
 		if (testeo == 1){ 
 			console.log("Preparando textos para grupo Híbrido");			//debug HIBRIDO
